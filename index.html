@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="烏茲別克之旅">
+<title>烏茲別克 11日之旅</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#C9A96E;--terra:#C1633A;--cobalt:#1B4F8A;--tile:#2E8B8B;
+  --ivory:#FAF6EE;--cream:#F2EBE0;--ink:#1A1410;--gold:#D4A843;--deep:#0D2B4E;
+  --muted:#7A6A5A;--card:#FFFFFF;--border:#E8E0D2;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--ivory);color:var(--ink);max-width:480px;margin:0 auto;min-height:100vh;overflow-x:hidden;font-size:14px;line-height:1.6}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:rgba(201,169,110,.4);border-radius:3px}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:100;background:var(--cream);padding:16px 14px 10px;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.hdr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.hdr h1{font-size:17px;font-weight:900;color:var(--terra);letter-spacing:.5px;font-family:'Playfair Display','Noto Sans TC',serif}
+.hdr .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.badges{display:flex;gap:5px;flex-wrap:wrap}
+.badge{font-size:10px;background:var(--card);padding:3px 9px;border-radius:14px;color:var(--muted);border:1px solid var(--border);white-space:nowrap}
+
+/* Day tabs */
+.tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:7px 12px;border-radius:16px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:60px;text-align:center}
+.tab.active{border:none;color:#fff;font-weight:700}
+.tab .emo{font-size:13px}
+.tab .lbl{font-size:11.5px;font-weight:inherit}
+.tab .wk{font-size:9.5px;opacity:.7}
+
+/* View toggle */
+.vtog{display:flex;margin-top:6px;gap:0}
+.vtog button{flex:1;padding:7px 0;font-size:12px;background:var(--card);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s}
+.vtog button:first-child{border-radius:8px 0 0 8px}
+.vtog button:last-child{border-radius:0 8px 8px 0}
+.vtog button.active{background:var(--terra);color:#fff;font-weight:600;border-color:var(--terra)}
+
+/* Content area — light */
+.content{padding:10px 14px 100px;background:var(--ivory)}
+.day-hdr{text-align:center;padding:14px 0 8px}
+.day-hdr .city{font-size:14px;font-weight:700;font-family:'Playfair Display',serif}
+.day-hdr .dtitle{font-size:16px;font-weight:700;color:var(--ink);margin-top:4px;font-family:'Playfair Display',serif}
+.day-hdr .ddate{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* Spot card — white card on cream */
+.spot{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:14px 16px;margin-bottom:4px;transition:all .25s;animation:fadeIn .3s ease both;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.spot.expanded{border-color:var(--sand);box-shadow:0 4px 16px rgba(201,169,110,.12)}
+.spot-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.spot-top{display:flex;justify-content:space-between;align-items:flex-start}
+.spot-meta{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.spot-edit{width:30px;height:30px;border-radius:50%;background:rgba(201,169,110,.1);border:none;color:var(--gold);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.spot-edit:active{background:rgba(201,169,110,.2);transform:scale(.9)}
+.spot-idx{font-size:10px;color:#fff;background:var(--muted);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:600}
+.spot h3{font-size:15px;font-weight:700;color:var(--ink);line-height:1.35}
+.spot .desc{font-size:13px;color:var(--muted);line-height:1.65;margin:6px 0}
+
+/* Tags */
+.tags{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.tag{font-size:10px;padding:3px 9px;border-radius:12px;font-weight:600;letter-spacing:.03em}
+.tag-觀光{background:#FFF8E1;color:#F57F17;border:1px solid #FFE082}
+.tag-餐飲{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7}
+.tag-購物{background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9}
+.tag-交通{background:#FBE9E7;color:#BF360C;border:1px solid #FFAB91}
+.tag-住宿{background:#ECEFF1;color:#37474F;border:1px solid #B0BEC5}
+.tag-體驗{background:#F3E5F5;color:#7B1FA2;border:1px solid #CE93D8}
+.tag-提醒{background:#FFF3E0;color:#E65100;border:1px solid #FFB74D}
+.meal{font-size:10px;padding:3px 9px;border-radius:12px;font-weight:600}
+.meal-lunch{background:#FFF3E0;color:#E65100}
+.meal-dinner{background:#E8F5E9;color:#2E7D32}
+.meal-farewell{background:#FCE4EC;color:#AD1457}
+
+/* Tip & Warn */
+.tip-box{font-size:12px;margin-top:8px;padding:8px 10px;border-radius:8px;line-height:1.5}
+.tip-box.info{background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9}
+.tip-box.warn{background:#FFF3E0;color:#E65100;border:1px solid #FFB74D}
+
+/* Action buttons */
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.abtn{display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:20px;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .15s;letter-spacing:.02em}
+.abtn:active{transform:scale(.95)}
+.abtn-map{background:#1A73E8;color:#fff}
+.abtn-food{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7}
+.abtn-conv{background:#ECEFF1;color:#546E7A;border:1px solid #B0BEC5}
+.abtn-attr{background:#FFF8E1;color:#F57F17;border:1px solid #FFE082}
+
+/* Connector */
+.conn{display:flex;align-items:center;gap:8px;padding:4px 12px;margin:3px 0}
+.conn span{font-size:11px;color:var(--muted)}
+.conn .line{flex:1;border-top:1px dashed var(--border)}
+
+/* Add spot */
+.add-spot{text-align:center;padding:10px;border:1.5px dashed var(--border);border-radius:10px;margin:4px 0;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;background:transparent}
+.add-spot:active{background:rgba(201,169,110,.06);border-color:var(--sand);color:var(--sand)}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 16px 24px;background:linear-gradient(transparent,var(--cream) 30%);z-index:90;display:flex;justify-content:center}
+.reorder-btn{background:linear-gradient(135deg,var(--terra),var(--gold));color:#fff;font-size:13px;font-weight:700;padding:12px 32px;border-radius:24px;border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(193,99,58,.25);transition:all .2s;letter-spacing:.03em}
+.reorder-btn:active{transform:scale(.95)}
+
+/* Map */
+.map-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--card);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.map-wrap iframe{display:block}
+.map-list{padding:12px}
+.map-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #F0E8DA}
+.map-item:last-child{border-bottom:none}
+.map-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.map-info{flex:1}
+.map-info .n{font-size:13px;font-weight:600;color:var(--ink)}
+.map-info .t{font-size:11px;color:var(--muted)}
+.map-nav{padding:5px 12px;border-radius:14px;background:#1A73E8;color:#fff;font-size:10px;text-decoration:none;font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:10px 12px;border-top:1px solid #F0E8DA}
+.legend-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+.legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* Info section */
+.info-tabs{display:flex;gap:6px;margin-bottom:14px}
+.info-tab{flex:1;padding:8px 0;font-size:12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s;font-weight:500}
+.info-tab.active{background:var(--terra);color:#fff;font-weight:700;border-color:var(--terra)}
+.tip-card{background:var(--card);border-radius:10px;padding:14px 16px;margin-bottom:8px;animation:fadeIn .3s ease both;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.tip-card .icon{font-size:22px;margin-bottom:6px}
+.tip-card .tt{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.tip-card .td{font-size:13px;color:var(--muted);line-height:1.65}
+.etiq-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.etiq-card{background:var(--card);border-radius:10px;padding:14px;animation:fadeIn .3s ease both;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.etiq-card .ei{font-size:24px;margin-bottom:6px}
+.etiq-card .et{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.etiq-card .ed{font-size:11.5px;color:var(--muted);line-height:1.55}
+.budget-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #F0E8DA;font-size:14px}
+.budget-row .cat{color:var(--ink)}
+.budget-row .amt{color:var(--terra);font-weight:700;font-size:15px;font-family:'Playfair Display',serif}
+.budget-total{margin-top:14px;padding:16px;background:var(--terra);border-radius:12px;display:flex;justify-content:space-between;align-items:center}
+.budget-total .bl{color:rgba(255,255,255,.85);font-weight:600;font-size:13px}
+.budget-total .bt{color:#fff;font-weight:700;font-size:22px;font-family:'Playfair Display',serif}
+
+.footer{text-align:center;padding:24px 16px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:20px}
+.footer .logo{font-size:20px;color:var(--terra);margin-bottom:6px;font-weight:700;font-family:'Playfair Display',serif}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:flex-end;justify-content:center}
+.modal{background:var(--ivory);border-radius:20px 20px 0 0;max-width:480px;width:100%;padding:24px 18px 34px;max-height:75vh;overflow-y:auto}
+.modal h3{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px;font-family:'Playfair Display',serif}
+.modal label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;margin-top:12px;font-weight:600;letter-spacing:.04em}
+.modal input,.modal textarea{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--ink);font-size:14px;font-family:inherit;outline:none;resize:vertical;transition:border .2s}
+.modal input:focus,.modal textarea:focus{border-color:var(--gold)}
+.modal textarea{min-height:70px}
+.modal-btns{display:flex;gap:8px;margin-top:18px}
+.modal-btns button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.modal-btns button:active{transform:scale(.96)}
+.btn-save{background:var(--terra);color:#fff}
+.btn-cancel{background:#ECEFF1;color:var(--muted)}
+.btn-delete{background:#FFEBEE;color:#C62828}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const D = {
+  title:"🕌 烏茲別克絲路之旅",sub:"10晚11天 · Uzbekistan",people:3,
+  budget:[{i:"✈️",c:"國際機票（來回）",a:"$400–600"},{i:"🏨",c:"住宿（10晚）",a:"$250–400"},{i:"🚄",c:"城市間交通",a:"$80–120"},{i:"🍽️",c:"餐飲（10天）",a:"$150–200"},{i:"🎫",c:"景點門票",a:"$50–80"},{i:"🛍️",c:"購物紀念品",a:"$100–200"},{i:"🚕",c:"市內交通",a:"$50–80"}],
+  budgetTotal:"~$1,080–1,680",
+  etiq:[{i:"👗",t:"宗教場所著裝",d:"覆蓋肩膀與膝蓋。女性隨身攜帶輕薄圍巾，進門前脫鞋。"},{i:"📸",t:"拍照禮儀",d:"拍攝當地人前先徵得同意，避免拍攝政府建築與軍事設施。"},{i:"🍵",t:"茶文化",d:"倒茶反覆三次叫「Kaytar」是敬意儀式。進門必喝茶，拒絕失禮。"},{i:"🤝",t:"性別互動",d:"初次見面右手輕放胸前微鞠躬，勿主動伸手握手。"},{i:"💰",t:"市場議價",d:"帶著微笑開價，是絲路延續至今的社交儀式。"},{i:"🙏",t:"禮拜禁忌",d:"勿從禮拜者前方經過。受邀做客帶非酒精禮物。"}],
+  tips:[{i:"📅",t:"最佳旅遊季節",d:"4–5月（春花）或9–10月。夏季可達40°C。",c:"var(--sand)"},{i:"🛂",t:"簽證",d:"台灣護照可申請 e-Visa，2–3工作天，約$20 USD。",c:"var(--cobalt)"},{i:"📱",t:"必備APP",d:"Yandex Go（計程車）、Google Maps（離線地圖）。機場買 Beeline SIM 25GB/$5。",c:"var(--terra)"},{i:"💱",t:"貨幣",d:"UZS，$1≈12,700。ATM常見，建議帶美元現金。景點僅收現金。",c:"var(--tile)"},{i:"🎒",t:"必帶物品",d:"防曬乳SPF50+、防塵口罩（沙漠）、輕薄圍巾（清真寺）、防滑鞋。",c:"var(--gold)"}],
+  days:[
+    {day:1,date:"4/24",wk:"五",city:"塔什干 Tashkent",title:"抵達 · 養精蓄銳迎接絲路",emo:"✈️",clr:"#1B4F8A",spots:[
+      {tm:"20:15",nm:"✈️ 塔什干國際機場抵達",ds:"入境、提行李、出關約30–45分鐘。搭 Yandex Go 至市區約25–40分鐘。",mp:"Tashkent+International+Airport",tg:["交通"],tp:"💡 車資約 60,000–100,000 UZS，用 Yandex Go 避免野雞車",la:41.2531,ln:69.2817},
+      {tm:"21:30",nm:"🏨 入住飯店 · 簡單補給",ds:"到達已晚，飯店附近便利商店採購水果飲品。早點休息。",tg:["住宿"],tp:"💡 帖木兒廣場夜景明天傍晚補逛更好",la:41.3111,ln:69.2797},
+      {tm:"備註",nm:"📋 當晚準備事項",ds:"確認高鐵車票（4/26 08:00→撒馬爾罕）。下載 Yandex Go、離線地圖。機場換少量索姆。",tg:["提醒"],wn:"⚠️ 高鐵熱門班次易售罄，今晚確認",la:41.3111,ln:69.2797},
+    ]},
+    {day:2,date:"4/25",wk:"六",city:"塔什干 Tashkent",title:"老城靈魂與地下宮殿",emo:"🕌",clr:"#1B4F8A",spots:[
+      {tm:"08:30",nm:"🕌 哈茲拉提伊瑪目建築群",ds:"世界最古老古蘭經手抄本（7世紀），UNESCO遺產。圖書館門票 30,000 UZS。",mp:"Khast+Imam+Complex+Tashkent",tg:["觀光"],la:41.3396,ln:69.2321},
+      {tm:"09:30",nm:"🛒 楚蘇巴扎 Chorsu Bazaar",ds:"藍綠色大穹頂傳統市場。香料、乾果堅果、現做拉麵烤肉串。",mp:"Chorsu+Bazaar+Tashkent",tg:["購物","餐飲"],la:41.3264,ln:69.2341},
+      {tm:"11:30",nm:"🏫 庫凱達什神學院 + 朱瑪清真寺",ds:"15世紀塔什干現存最大歷史建築之一。",mp:"Kukeldash+Madrasah+Tashkent",tg:["觀光"],la:41.3270,ln:69.2350},
+      {tm:"12:30",nm:"🍚 貝什科宗抓飯中心",ds:"全世界最大的抓飯鍋！節慶抓飯配鵪鶉蛋、馬肉腸。",mp:"Besh+Qozon+Plov+Center+Tashkent",tg:["餐飲"],ml:"lunch",la:41.3089,ln:69.2953},
+      {tm:"14:30",nm:"🚇 地鐵宮殿巡禮",ds:"Alisher Navoi（浮雕天花板）、Kosmonavtlar（太空主題）、Mustaqillik Maydoni。",tg:["觀光","交通"],tp:"💡 地鐵約 1,800 UZS/次",la:41.3116,ln:69.2787},
+      {tm:"16:30",nm:"🎨 國家應用藝術博物館",ds:"蘇扎尼刺繡、陶瓷、木雕。19世紀傳統宅邸展館。",mp:"State+Museum+of+Applied+Arts+Tashkent",tg:["觀光"],la:41.3078,ln:69.2710},
+      {tm:"18:00",nm:"🗽 帖木兒廣場 + Broadway",ds:"帖木兒銅像與夜間天際線。Broadway 步行街傍晚散步。",mp:"Amir+Timur+Square+Tashkent",tg:["觀光"],la:41.3111,ln:69.2797},
+      {tm:"晚餐",nm:"🍷 Platan Restaurant",ds:"烏茲別克×歐式融合＋當地葡萄酒。",tg:["餐飲"],ml:"dinner",wn:"⚠️ 明早搭高鐵，確認車票",la:41.3110,ln:69.2800},
+    ]},
+    {day:3,date:"4/26",wk:"日",city:"→ 撒馬爾罕",title:"帝木兒帝國初次相遇",emo:"🏛️",clr:"#2E8B8B",spots:[
+      {tm:"08:00",nm:"🚄 阿夫羅西約布 760Ф",ds:"塔什干→撒馬爾罕 2h8m。提前30分鐘到站。",tg:["交通"],tp:"💡 eticket.railway.uz 訂票",la:41.2891,ln:69.2029},
+      {tm:"11:00",nm:"🏛️ 古里阿米爾陵墓",ds:"帖木兒長眠之地，藍色穹頂、深綠玉石棺。泰姬瑪哈陵原型。",mp:"Gur-e-Amir+Mausoleum+Samarkand",tg:["觀光"],la:39.6494,ln:66.9685},
+      {tm:"午餐",nm:"🍖 Shokhrukh Nur 餐廳",ds:"嫩羊肉串+手工拉麵+當地啤酒。",tg:["餐飲"],ml:"lunch",la:39.6550,ln:66.9760},
+      {tm:"14:30",nm:"🌟 列吉斯坦廣場",ds:"三座神學院，世界最壯觀伊斯蘭建築群。日落黃金拍攝時段。",mp:"Registan+Square+Samarkand",tg:["觀光"],la:39.6548,ln:66.9758},
+      {tm:"晚餐",nm:"🌙 Emirhan 頂樓露台",ds:"直望列吉斯坦廣場夜景，旺季提前預約。",mp:"Emirhan+Restaurant+Samarkand",tg:["餐飲"],ml:"dinner",la:39.6545,ln:66.9765},
+    ]},
+    {day:4,date:"4/27",wk:"一",city:"撒馬爾罕",title:"陵墓之路與天文台",emo:"💎",clr:"#2E8B8B",spots:[
+      {tm:"08:30",nm:"💎 夏伊辛達陵墓群",ds:"14–15世紀釉磚藝術巔峰。石階光滑穿防滑鞋！",mp:"Shah-i-Zinda+Samarkand",tg:["觀光"],la:39.6620,ln:66.9879},
+      {tm:"10:30",nm:"🕌 比比哈努姆 + 錫亞布巴扎",ds:"曾全球最大清真寺。巴扎17種圓餅，全烏茲別克最好吃。",mp:"Bibi+Khanym+Mosque+Samarkand",tg:["觀光","購物"],la:39.6607,ln:66.9788},
+      {tm:"午餐",nm:"🍛 撒馬爾罕抓飯中心 N1",ds:"當地人公認最好的抓飯，份量豪邁。",tg:["餐飲"],ml:"lunch",la:39.6555,ln:66.9770},
+      {tm:"14:00",nm:"🔭 烏魯別克天文台",ds:"1428年弧形六分儀，精準測繪1000+顆恆星。旁有阿夫羅西亞博物館。",mp:"Ulugh+Beg+Observatory+Samarkand",tg:["觀光"],la:39.6721,ln:66.9778},
+      {tm:"晚餐",nm:"🕯️ Platan Restaurant",ds:"馬斯塔瓦湯＋葡萄酒＋烤饢。請提前訂位。",tg:["餐飲"],ml:"dinner",wn:"⚠️ 明天高鐵往布哈拉 09:50",la:39.6550,ln:66.9755},
+    ]},
+    {day:5,date:"4/28",wk:"二",city:"→ 布哈拉",title:"穿越時空的千年聖城",emo:"🕌",clr:"#C1633A",spots:[
+      {tm:"09:50",nm:"🚄 762Ф → 布哈拉",ds:"撒馬爾罕→布哈拉 1h29m。火車站距舊城12km。",tg:["交通"],la:39.7099,ln:64.6184},
+      {tm:"12:30",nm:"🌊 拉比豪茲廣場午餐",ds:"梧桐樹蔭人工水池旁。烤肉串與酸奶沙拉。",mp:"Lyabi+Hauz+Bukhara",tg:["餐飲","觀光"],ml:"lunch",la:39.7734,ln:64.4177},
+      {tm:"14:00",nm:"🏪 穹頂交易市場",ds:"16世紀絲路巴扎：珠寶→帽子→貨幣穹頂。",mp:"Toki+Zargaron+Bukhara",tg:["購物","觀光"],la:39.7748,ln:64.4155},
+      {tm:"17:00",nm:"🗼 波伊卡里安建築群",ds:"45.6m卡里安宣禮塔（1127年），連成吉思汗都被震懾。",mp:"Kalyan+Minaret+Bukhara",tg:["觀光"],la:39.7755,ln:64.4157},
+      {tm:"晚餐",nm:"🏡 Doston House 私宅餐廳",ds:"僅15人預約。四種植物油抓飯，全烏茲別克最好。",mp:"Doston+House+Bukhara",tg:["餐飲"],ml:"dinner",wn:"⚠️ 必須提前預約！",la:39.7740,ln:64.4170},
+    ]},
+    {day:6,date:"4/29",wk:"三",city:"布哈拉",title:"方舟城堡與手工藝職人",emo:"🏯",clr:"#C1633A",spots:[
+      {tm:"09:00",nm:"🏯 方舟城堡 Ark",ds:"千年土築城堡，登城牆俯瞰舊城全景。",mp:"Ark+Fortress+Bukhara",tg:["觀光"],la:39.7760,ln:64.4128},
+      {tm:"10:30",nm:"🕌 博洛豪茲 + 薩曼尼陵墓",ds:"20根精雕木柱。10世紀中亞最古老伊斯蘭建築。",mp:"Ismail+Samani+Mausoleum+Bukhara",tg:["觀光"],la:39.7780,ln:64.4100},
+      {tm:"12:30",nm:"🍖 Old Bukhara Restaurant",ds:"傳統烤肉與曼提餃子。",tg:["餐飲"],ml:"lunch",la:39.7745,ln:64.4160},
+      {tm:"14:00",nm:"🎨 手工藝工坊 + 瑪戈奇阿塔里",ds:"銅器雕花、刺繡工坊。布哈拉最古老清真寺。",mp:"Magoki+Attori+Mosque+Bukhara",tg:["觀光","購物"],tp:"💡 深度旅遊精華！",la:39.7740,ln:64.4150},
+      {tm:"16:00",nm:"🍵 拉比豪茲茶館發呆",ds:"綠茶配堅果杏乾。什麼都不做，就只是在場。",tg:["體驗"],la:39.7734,ln:64.4177},
+      {tm:"晚餐",nm:"🍺 池畔茶館 Chayhana",ds:"拉麵＋烤魚＋Sarbast生啤＋現場音樂。",tg:["餐飲"],ml:"dinner",wn:"⚠️ 明天包車往希瓦，確認安排",la:39.7735,ln:64.4178},
+    ]},
+    {day:7,date:"4/30",wk:"四",city:"→ 希瓦",title:"穿越克孜勒庫姆沙漠",emo:"🏰",clr:"#D4A843",spots:[
+      {tm:"08:00",nm:"🚗 包車→希瓦（約6hr）",ds:"穿越沙漠。棉花田→黃沙→駱駝帳篷。",tg:["交通"],tp:"💡 三人分攤約$30–45/人",la:39.7745,ln:64.4231},
+      {tm:"中途",nm:"🍽️ Zakhratun 午餐",ds:"沙漠途中休息補給。",tg:["餐飲"],ml:"lunch",la:40.5,ln:62.0},
+      {tm:"15:00",nm:"🏰 伊欽卡拉古城初見",ds:"迷失泥磚迷宮。登伊斯蘭霍查宣禮塔（57m）俯瞰日落。",mp:"Ichan+Kala+Khiva",tg:["觀光"],tp:"💡 日落是希瓦最震撼體驗",la:41.3786,ln:60.3638},
+      {tm:"晚餐",nm:"🌿 Terrassa Cafe",ds:"必點綠麵 Shivit Oshi＋南瓜曼提餃子。希瓦獨有。",mp:"Terrassa+Cafe+Khiva",tg:["餐飲"],ml:"dinner",la:41.3790,ln:60.3640},
+    ]},
+    {day:8,date:"5/1",wk:"五",city:"希瓦 Khiva",title:"中亞最完整的活態博物館",emo:"🌅",clr:"#D4A843",spots:[
+      {tm:"08:00",nm:"🌅 清晨獨步古城",ds:"遊客湧入前最魔幻。陽光斜射泥磚牆。",tg:["體驗"],tp:"💡 全程最值得早起的一刻",la:41.3786,ln:60.3638},
+      {tm:"08:30",nm:"🏛️ 卡爾塔米諾爾 + 庫尼亞方舟",ds:"未完成的綠松石胖宣禮塔。登庫尼亞方舟360度俯瞰。",mp:"Kalta+Minor+Minaret+Khiva",tg:["觀光"],la:41.3790,ln:60.3620},
+      {tm:"10:30",nm:"🏛️ 朱瑪清真寺 + 塔什豪利宮",ds:"213根精雕木柱。19世紀皇宮彩繪天花板。",mp:"Juma+Mosque+Khiva",tg:["觀光"],la:41.3788,ln:60.3635},
+      {tm:"午餐",nm:"🌸 Khiva Moon 花園餐廳",ds:"花拉子模式抓飯＋蛋餃子 Tukhum Barak。",mp:"Khiva+Moon+Restaurant",tg:["餐飲"],ml:"lunch",la:41.3785,ln:60.3645},
+      {tm:"14:00",nm:"💫 帕赫拉旺陵墓 + 手工藝巷弄",ds:"守護聖人墓→登伊斯蘭霍查頂→木雕絲織工坊。",mp:"Pahlavon+Mahmud+Mausoleum+Khiva",tg:["觀光","購物"],la:41.3789,ln:60.3632},
+      {tm:"深夜",nm:"⭐ 沙漠星空",ds:"城牆上靜觀星空，光害極低。",tg:["體驗"],wn:"⚠️ 明天搭飛機，確認機場接送",la:41.3786,ln:60.3638},
+    ]},
+    {day:9,date:"5/2",wk:"六",city:"→ 回塔什干",title:"回到起點，不同的眼光",emo:"✈️",clr:"#1B4F8A",spots:[
+      {tm:"07:50",nm:"🚕 往烏爾根奇機場",ds:"希瓦搭計程車約30–35分鐘。",tg:["交通"],tp:"💡 國內線提前1小時到",la:41.5862,ln:60.6417},
+      {tm:"09:30",nm:"✈️ HY52 → 塔什干",ds:"Uzbekistan Airways，10:50抵達。$50–80。",tg:["交通"],la:41.2531,ln:69.2817},
+      {tm:"11:30",nm:"🏛️ 獨立廣場 + 帖木兒博物館",ds:"全新眼光回顧帖木兒帝國。",mp:"Amir+Timur+Museum+Tashkent",tg:["觀光"],la:41.3111,ln:69.2797},
+      {tm:"18:00",nm:"🛍️ 購物採買",ds:"Tashkent City Mall：刺繡、陶瓷、絲巾、藏紅花。",tg:["購物"],la:41.3114,ln:69.2811},
+      {tm:"晚餐",nm:"🥂 Tumbler Bar & Lounge",ds:"塔什干最高評價餐酒館，手工調酒慶祝。",tg:["餐飲"],ml:"dinner",la:41.3100,ln:69.2790},
+    ]},
+    {day:10,date:"5/3",wk:"日",city:"塔什干",title:"最後的巡禮",emo:"🛍️",clr:"#7A6A5A",spots:[
+      {tm:"09:30",nm:"🛒 楚蘇巴扎最後採買",ds:"圓餅、乾果禮盒、藏紅花、陶瓷小碗。",mp:"Chorsu+Bazaar+Tashkent",tg:["購物"],la:41.3264,ln:69.2341},
+      {tm:"午餐",nm:"🔥 Tandiriy 烤爐料理",ds:"巴扎旁烤爐烤肉與烤餅。",tg:["餐飲"],ml:"lunch",la:41.3260,ln:69.2345},
+      {tm:"14:00",nm:"🛍️ Tashkent City Mall",ds:"最後購物。",tg:["購物"],la:41.3114,ln:69.2811},
+      {tm:"晚餐",nm:"🥂 Tumbler Bar & Lounge",ds:"慶功晚宴。",mp:"Tumbler+Bar+Lounge+Tashkent",tg:["餐飲"],ml:"dinner",la:41.3100,ln:69.2790},
+    ]},
+    {day:11,date:"5/4",wk:"一",city:"塔什干 → 回家",title:"帶著藍色記憶啟程",emo:"🛫",clr:"#4A4A4A",spots:[
+      {tm:"上午",nm:"☕ 飯店早餐 + 收行李",ds:"輕鬆早晨，補寫明信片。",tg:["住宿"],la:41.3111,ln:69.2797},
+      {tm:"13:00",nm:"🕌 哈茲拉提伊瑪目（選）",ds:"Day 2 第一站，最後再訪別有感觸。",mp:"Khast+Imam+Complex+Tashkent",tg:["觀光"],la:41.3396,ln:69.2321},
+      {tm:"18:40",nm:"🚕 出發前往機場",ds:"航班 21:40。市區→機場 20–30min。提前3小時。",tg:["交通"],wn:"⚠️ 確認護照、登機證、電子票券",la:41.2531,ln:69.2817},
+      {tm:"21:40",nm:"✈️ 塔什干機場出發",ds:"願你帶著藍色琉璃磚記憶與抓飯香氣，平安回家。",mp:"Tashkent+International+Airport",tg:["交通"],ml:"farewell",la:41.2531,ln:69.2817},
+    ]},
+  ]
+};
+
+let S={ad:0,vw:"itinerary",ex:null,days:JSON.parse(JSON.stringify(D.days)),it:"tips",modal:null};
+function gm(s){return s.mp?`https://maps.google.com/?q=${s.mp}`:`https://www.google.com/maps/search/?api=1&query=${s.la},${s.ln}`}
+function nb(s,t){return`https://www.google.com/maps/search/${t}/@${s.la},${s.ln},15z`}
+function ml(m){return{lunch:{bg:"#FFF3E0",c:"#E65100",l:"☀️ 午餐"},dinner:{bg:"#E8F5E9",c:"#2E7D32",l:"🌙 晚餐"},farewell:{bg:"#FCE4EC",c:"#AD1457",l:"🌙 再見烏茲別克"}}[m]}
+
+let addAt=0;
+function render(){
+  const c=S.days[S.ad];
+  let h=`<div class="hdr">
+    <div class="hdr-top">
+      <div><h1>${D.title}</h1><div class="sub">${D.sub}</div></div>
+      <div class="badges"><span class="badge">🔒 私隱</span><span class="badge">👥 ${D.people}名</span><span class="badge">↻ 重設</span></div>
+    </div>
+    <div class="tabs">${S.days.map((d,i)=>`<div class="tab ${S.ad===i?'active':''}" style="${S.ad===i?`background:linear-gradient(135deg,${d.clr},${d.clr}cc);box-shadow:0 3px 10px ${d.clr}33`:''}" onclick="nav(${i})"><span class="emo">${d.emo}</span><span class="lbl">第${d.day}天</span><span class="wk">${d.wk} · ${d.date}</span></div>`).join('')}</div>
+    <div class="vtog">
+      <button class="${S.vw==='itinerary'?'active':''}" onclick="sw('itinerary')">📋 行程</button>
+      <button class="${S.vw==='map'?'active':''}" onclick="sw('map')">🗺️ 地圖</button>
+      <button class="${S.vw==='info'?'active':''}" onclick="sw('info')">📖 攻略</button>
+    </div>
+  </div><div class="content">
+    <div class="day-hdr"><div class="city" style="color:${c.clr}">${c.emo} ${c.city}</div><div class="dtitle">${c.title}</div><div class="ddate">2026 年 ${c.date}（${c.wk}）</div></div>`;
+
+  if(S.vw==='itinerary'){
+    h+=`<div class="add-spot" onclick="addSpot(0)">＋ 在此加入新景點</div>`;
+    c.spots.forEach((s,i)=>{
+      const ex=S.ex===i;
+      h+=`<div class="conn"><span>${s.tg&&s.tg.includes('交通')?'🚃 交通移動':'🚶 步行'}</span><div class="line"></div></div>`;
+      h+=`<div class="spot ${ex?'expanded':''}" style="animation-delay:${i*.04}s" onclick="toggle(${i})">
+        <div class="spot-top"><div style="flex:1">
+          <div class="spot-meta"><span class="spot-time" style="color:${c.clr}">${s.tm}</span><span class="spot-idx">${i+1}</span></div>
+          <h3>${s.nm}</h3></div>
+          <button class="spot-edit" onclick="event.stopPropagation();editSpot(${i})">✏️</button>
+        </div>
+        <p class="desc">${s.ds}</p>
+        <div class="tags">${(s.tg||[]).map(t=>`<span class="tag tag-${t}">${t}</span>`).join('')}${s.ml&&ml(s.ml)?`<span class="meal meal-${s.ml}">${ml(s.ml).l}</span>`:''}</div>
+        ${s.tp?`<div class="tip-box info">${s.tp}</div>`:''}${s.wn?`<div class="tip-box warn">${s.wn}</div>`:''}
+        ${ex?`<div class="actions">
+          ${s.mp?`<a class="abtn abtn-map" href="${gm(s)}" target="_blank" onclick="event.stopPropagation()">📍 Google Maps 導航</a>`:''}
+          <a class="abtn abtn-food" href="${nb(s,'restaurant')}" target="_blank" onclick="event.stopPropagation()">🍽️ 附近餐廳</a>
+          <a class="abtn abtn-conv" href="${nb(s,'convenience+store')}" target="_blank" onclick="event.stopPropagation()">🏪 便利店</a>
+          <a class="abtn abtn-attr" href="${nb(s,'tourist+attraction')}" target="_blank" onclick="event.stopPropagation()">📍 附近景點</a>
+        </div>`:''}
+      </div><div class="add-spot" onclick="addSpot(${i+1})">＋ 在此加入新景點</div>`;
+    });
+    h+=`<div class="bottom-bar"><button class="reorder-btn" onclick="alert('點擊各景點右上角 ✏️ 可編輯內容或刪除景點')">✏️ 編輯行程</button></div>`;
+  }
+
+  if(S.vw==='map'){
+    const sp=c.spots.filter(s=>s.la&&s.ln&&s.la!==0);
+    if(sp.length>0){
+      // Build Google Maps embed with place markers
+      const markers=sp.map((s,i)=>`&markers=color:red%7Clabel:${i+1}%7C${s.la},${s.ln}`).join('');
+      // Calculate center
+      const cLa=sp.reduce((a,s)=>a+s.la,0)/sp.length;
+      const cLn=sp.reduce((a,s)=>a+s.ln,0)/sp.length;
+      // Calculate zoom based on spread
+      const latSpread=Math.max(...sp.map(s=>s.la))-Math.min(...sp.map(s=>s.la));
+      const lnSpread=Math.max(...sp.map(s=>s.ln))-Math.min(...sp.map(s=>s.ln));
+      const spread=Math.max(latSpread,lnSpread);
+      const zoom=spread<0.02?15:spread<0.05?14:spread<0.15?13:spread<0.5?12:spread<2?10:spread<5?8:6;
+      h+=`<div class="map-wrap">
+        <div style="position:relative;width:100%;height:400px;background:#E8E0D2;overflow:hidden">
+          <iframe width="100%" height="400" style="border:none" loading="lazy"
+            src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&center=${cLa},${cLn}&zoom=${zoom}&maptype=roadmap"></iframe>
+        </div>
+        <div style="padding:10px 14px 6px;border-bottom:1px solid #F0E8DA">
+          <div style="font-size:12px;color:var(--muted);font-weight:600">📍 當日景點 · ${sp.length} 個地點</div>
+        </div>
+        <div class="map-list">${sp.map((s,i)=>`
+          <div class="map-item" onclick="window.open('${gm(s)}','_blank')" style="cursor:pointer">
+            <div class="map-dot" style="background:${c.clr}">${i+1}</div>
+            <div class="map-info">
+              <div class="n">${s.nm}</div>
+              <div class="t">${s.tm}${s.tg&&s.tg.length?' · '+s.tg.join('、'):''}</div>
+            </div>
+            <a class="map-nav" href="${gm(s)}" target="_blank" onclick="event.stopPropagation()">開啟地圖</a>
+          </div>`).join('')}
+        </div>
+        <div style="padding:10px 14px;text-align:center">
+          <a class="abtn abtn-map" href="https://www.google.com/maps/dir/${sp.map(s=>s.la+','+s.ln).join('/')}" target="_blank" style="display:inline-flex;font-size:12px;padding:10px 20px;border-radius:20px;text-decoration:none">🗺️ 在 Google Maps 開啟完整路線</a>
+        </div>
+      </div>`;
+    } else {
+      h+=`<div style="text-align:center;padding:40px 20px;color:var(--muted)">此日無景點座標資料</div>`;
+    }
+  }
+
+  if(S.vw==='info'){
+    h+=`<div class="info-tabs"><button class="info-tab ${S.it==='tips'?'active':''}" onclick="sit('tips')">出發準備</button><button class="info-tab ${S.it==='etiq'?'active':''}" onclick="sit('etiq')">文化禮儀</button><button class="info-tab ${S.it==='budget'?'active':''}" onclick="sit('budget')">費用估算</button></div>`;
+    if(S.it==='tips') h+=D.tips.map((t,i)=>`<div class="tip-card" style="border-left:4px solid ${t.c};animation-delay:${i*.05}s"><div class="icon">${t.i}</div><div class="tt">${t.t}</div><div class="td">${t.d}</div></div>`).join('');
+    if(S.it==='etiq') h+=`<div class="etiq-grid">${D.etiq.map((e,i)=>`<div class="etiq-card" style="border-top:3px solid var(--tile);animation-delay:${i*.05}s"><div class="ei">${e.i}</div><div class="et">${e.t}</div><div class="ed">${e.d}</div></div>`).join('')}</div>`;
+    if(S.it==='budget'){h+=D.budget.map(b=>`<div class="budget-row"><span class="cat">${b.i} ${b.c}</span><span class="amt">${b.a}</span></div>`).join('');h+=`<div class="budget-total"><span class="bl">總計估算 / 人</span><span class="bt">${D.budgetTotal}</span></div>`;}
+  }
+  h+=`</div><div class="footer"><div class="logo">Uzbekistan</div>願你帶著滿滿的藍色記憶與抓飯的香氣平安歸來</div>`;
+
+  if(S.modal!==null){
+    const isNew=S.modal==='new';const s=isNew?{tm:'',nm:'',ds:'',tg:[],tp:'',mp:''}:c.spots[S.modal];
+    h+=`<div class="modal-bg" onclick="closeModal()"><div class="modal" onclick="event.stopPropagation()">
+      <h3>${isNew?'✨ 新增景點':'✏️ 編輯景點'}</h3>
+      <label>時間</label><input id="m-tm" value="${s.tm||''}" placeholder="例：14:00">
+      <label>名稱</label><input id="m-nm" value="${s.nm||''}" placeholder="景點名稱">
+      <label>說明</label><textarea id="m-ds" placeholder="景點描述...">${s.ds||''}</textarea>
+      <label>Google Maps 搜尋關鍵字</label><input id="m-mp" value="${s.mp||''}" placeholder="例：Registan+Square+Samarkand">
+      <label>標籤（逗號分隔）</label><input id="m-tg" value="${(s.tg||[]).join(',')}" placeholder="觀光,餐飲,購物,交通,體驗">
+      <label>提示（選填）</label><input id="m-tp" value="${s.tp||''}" placeholder="💡 ...">
+      <div class="modal-btns"><button class="btn-cancel" onclick="closeModal()">取消</button>${!isNew?`<button class="btn-delete" onclick="delSpot(${S.modal})">刪除</button>`:''}<button class="btn-save" onclick="saveSpot(${isNew?-1:S.modal})">${isNew?'新增':'儲存'}</button></div>
+    </div></div>`;
+  }
+  document.getElementById('app').innerHTML=h;
+}
+
+function nav(i){S.ad=i;S.ex=null;S.vw='itinerary';render();document.querySelector('.tabs').children[i].scrollIntoView({behavior:'smooth',inline:'center'})}
+function sw(v){S.vw=v;render()}
+function sit(t){S.it=t;render()}
+function toggle(i){S.ex=S.ex===i?null:i;render()}
+function editSpot(i){S.modal=i;render()}
+function closeModal(){S.modal=null;render()}
+function addSpot(idx){addAt=idx;S.modal='new';render()}
+function saveSpot(idx){
+  const o={tm:document.getElementById('m-tm').value,nm:document.getElementById('m-nm').value,ds:document.getElementById('m-ds').value,mp:document.getElementById('m-mp').value,tg:document.getElementById('m-tg').value.split(',').map(s=>s.trim()).filter(Boolean),tp:document.getElementById('m-tp').value,la:0,ln:0};
+  if(!o.nm){alert('請輸入景點名稱');return}
+  if(idx===-1){S.days[S.ad].spots.splice(addAt,0,o)}else{const old=S.days[S.ad].spots[idx];o.la=old.la;o.ln=old.ln;o.ml=old.ml;o.wn=old.wn;S.days[S.ad].spots[idx]=o}
+  S.modal=null;S.ex=null;render();
+}
+function delSpot(i){if(confirm('確定刪除此景點？')){S.days[S.ad].spots.splice(i,1);S.modal=null;S.ex=null;render()}}
+render();
+</script>
+</body>
+</html>
