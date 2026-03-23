@@ -2,1640 +2,438 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>烏茲別克 10 日深度之旅</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="烏茲別克之旅">
+<title>烏茲別克 11日之旅</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --sand: #C9A96E;
-    --terracotta: #C1633A;
-    --cobalt: #1B4F8A;
-    --tile: #2E8B8B;
-    --ivory: #F8F2E6;
-    --ink: #1A1410;
-    --muted: #7A6A5A;
-    --gold: #D4A843;
-    --deep: #0D2B4E;
-  }
+:root{
+  --sand:#C9A96E;--terra:#C1633A;--cobalt:#1B4F8A;--tile:#2E8B8B;
+  --ivory:#F8F2E6;--ink:#1A1410;--gold:#D4A843;--deep:#0D2B4E;
+  --bg1:#0a1628;--bg2:#132240;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans TC',sans-serif;background:linear-gradient(180deg,var(--deep),var(--bg2),var(--ink));color:var(--ivory);max-width:480px;margin:0 auto;min-height:100vh;overflow-x:hidden;font-size:14px;line-height:1.5}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:rgba(201,169,110,.3);border-radius:3px}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 
-  body {
-    font-family: 'Noto Serif TC', serif;
-    background: var(--ivory);
-    color: var(--ink);
-    font-size: 15px;
-    line-height: 1.7;
-    max-width: 480px;
-    margin: 0 auto;
-    overflow-x: hidden;
-  }
+/* Header */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(13,43,78,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:16px 14px 10px;border-bottom:1px solid rgba(201,169,110,.12)}
+.hdr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.hdr h1{font-size:17px;font-weight:900;color:var(--gold);letter-spacing:.5px}
+.hdr .sub{font-size:11px;color:rgba(248,242,230,.35);margin-top:2px}
+.badges{display:flex;gap:5px}
+.badge{font-size:10px;background:rgba(201,169,110,.08);padding:3px 9px;border-radius:14px;color:rgba(201,169,110,.55);border:1px solid rgba(201,169,110,.12);white-space:nowrap}
 
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    background: var(--deep);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 2rem;
-    text-align: center;
-  }
+/* Day tabs */
+.tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:8px 13px;border-radius:18px;border:1px solid rgba(201,169,110,.1);background:rgba(255,255,255,.02);color:rgba(248,242,230,.4);font-size:12px;font-weight:400;cursor:pointer;transition:all .2s;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:62px;text-align:center}
+.tab.active{border:none;color:#fff;font-weight:700}
+.tab .emo{font-size:14px}
+.tab .lbl{font-size:12px;font-weight:inherit}
+.tab .wk{font-size:10px;opacity:.7}
 
-  .hero-pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(43,139,139,0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(193,99,58,0.12) 0%, transparent 50%);
-  }
+/* View toggle */
+.vtog{display:flex;margin-top:6px}
+.vtog button{flex:1;padding:7px 0;font-size:12px;background:transparent;border:1px solid rgba(201,169,110,.1);color:rgba(248,242,230,.3);cursor:pointer;font-family:inherit;transition:all .15s}
+.vtog button:first-child{border-radius:8px 0 0 8px}
+.vtog button:last-child{border-radius:0 8px 8px 0}
+.vtog button.active{background:rgba(201,169,110,.12);color:var(--gold);font-weight:600}
 
-  /* geometric tile pattern SVG bg */
-  .hero-tiles {
-    position: absolute;
-    inset: 0;
-    opacity: 0.07;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpolygon points='40,0 80,20 80,60 40,80 0,60 0,20' fill='none' stroke='%23C9A96E' stroke-width='1'/%3E%3Cpolygon points='40,10 70,25 70,55 40,70 10,55 10,25' fill='none' stroke='%23C9A96E' stroke-width='0.5'/%3E%3Cline x1='40' y1='0' x2='40' y2='80' stroke='%23C9A96E' stroke-width='0.3'/%3E%3Cline x1='0' y1='40' x2='80' y2='40' stroke='%23C9A96E' stroke-width='0.3'/%3E%3C/svg%3E");
-  }
+/* Content */
+.content{padding:10px 12px 100px}
+.day-hdr{text-align:center;padding:12px 0 6px}
+.day-hdr .city{font-size:13px;font-weight:700}
+.day-hdr .dtitle{font-size:15px;font-weight:700;color:var(--ivory);margin-top:3px}
+.day-hdr .ddate{font-size:11px;color:rgba(248,242,230,.35);margin-top:2px}
 
-  .hero-subtitle {
-    font-family: 'Noto Serif TC', serif;
-    font-weight: 300;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    color: var(--sand);
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    animation: fadeUp 1s ease both;
-  }
+/* Spot card */
+.spot{background:rgba(248,242,230,.02);border-radius:12px;border:1px solid rgba(201,169,110,.08);padding:12px 14px;margin-bottom:3px;transition:all .25s;animation:fadeIn .3s ease both}
+.spot.expanded{border-color:rgba(201,169,110,.25);background:rgba(248,242,230,.04)}
+.spot-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.spot-top{display:flex;justify-content:space-between;align-items:flex-start}
+.spot-meta{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.spot-edit{width:28px;height:28px;border-radius:50%;background:rgba(201,169,110,.1);border:none;color:var(--gold);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.spot-edit:hover{background:rgba(201,169,110,.2)}
+.spot-idx{font-size:11px;color:rgba(248,242,230,.25);background:rgba(255,255,255,.04);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.spot h3{font-size:15px;font-weight:700;color:var(--ivory);line-height:1.35}
+.spot h3[contenteditable]:focus{outline:1px solid var(--gold);outline-offset:2px;border-radius:4px}
+.spot .desc{font-size:12.5px;color:rgba(248,242,230,.5);line-height:1.6;margin:6px 0}
+.spot .desc[contenteditable]:focus{outline:1px solid rgba(201,169,110,.3);outline-offset:2px;border-radius:4px}
 
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--ivory);
-    line-height: 1.1;
-    margin-bottom: 0.5rem;
-    animation: fadeUp 1s 0.15s ease both;
-  }
+/* Tags */
+.tags{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.tag{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:500}
+.tag-觀光{background:rgba(212,168,67,.12);color:#D4A843;border:1px solid rgba(212,168,67,.18)}
+.tag-餐飲{background:rgba(76,175,80,.1);color:#66BB6A;border:1px solid rgba(76,175,80,.15)}
+.tag-購物{background:rgba(91,141,239,.1);color:#5B8DEF;border:1px solid rgba(91,141,239,.15)}
+.tag-交通{background:rgba(193,99,58,.1);color:#C1633A;border:1px solid rgba(193,99,58,.15)}
+.tag-住宿{background:rgba(96,125,139,.1);color:#90A4AE;border:1px solid rgba(96,125,139,.15)}
+.tag-體驗{background:rgba(156,39,176,.1);color:#BA68C8;border:1px solid rgba(156,39,176,.15)}
+.tag-提醒{background:rgba(255,87,34,.1);color:#FF7043;border:1px solid rgba(255,87,34,.15)}
+.meal{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:600}
+.meal-lunch{background:#FFF3E0;color:#E65100}
+.meal-dinner{background:#E8F5E9;color:#2E7D32}
+.meal-farewell{background:#FCE4EC;color:#AD1457}
 
-  .hero-title em {
-    font-style: italic;
-    color: var(--gold);
-  }
+/* Tip & Warn */
+.tip-box{font-size:11px;margin-top:6px;padding:5px 9px;border-radius:6px}
+.tip-box.info{background:rgba(91,175,240,.07);color:#5BAFF0}
+.tip-box.warn{background:rgba(232,99,74,.07);color:#E8634A}
 
-  .hero-desc {
-    font-size: 0.85rem;
-    color: rgba(248,242,230,0.6);
-    letter-spacing: 0.08em;
-    margin-bottom: 2.5rem;
-    animation: fadeUp 1s 0.3s ease both;
-  }
+/* Action buttons */
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,169,110,.08)}
+.abtn{display:inline-flex;align-items:center;gap:3px;padding:6px 12px;border-radius:7px;border:none;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .15s}
+.abtn:active{transform:scale(.96)}
+.abtn-map{background:rgba(26,115,232,.12);color:#4A9DED}
+.abtn-food{background:rgba(76,175,80,.08);color:#66BB6A}
+.abtn-conv{background:rgba(255,255,255,.04);color:rgba(248,242,230,.4)}
+.abtn-attr{background:rgba(212,168,67,.08);color:var(--gold)}
 
-  .hero-badges {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeUp 1s 0.45s ease both;
-  }
+/* Connector */
+.conn{display:flex;align-items:center;gap:6px;padding:4px 10px;margin:3px 0}
+.conn span{font-size:10px;color:rgba(201,169,110,.3)}
+.conn .line{flex:1;border-top:1px dashed rgba(201,169,110,.1)}
 
-  .badge {
-    background: rgba(201,169,110,0.15);
-    border: 1px solid rgba(201,169,110,0.4);
-    color: var(--sand);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    padding: 0.35rem 0.8rem;
-    border-radius: 2rem;
-  }
+/* Add spot */
+.add-spot{text-align:center;padding:12px;border:1px dashed rgba(201,169,110,.12);border-radius:10px;margin:4px 0;color:rgba(201,169,110,.3);font-size:12px;cursor:pointer;transition:all .2s}
+.add-spot:hover,.add-spot:active{background:rgba(201,169,110,.04);color:rgba(201,169,110,.5);border-color:rgba(201,169,110,.25)}
 
-  .hero-scroll {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: rgba(248,242,230,0.4);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    animation: pulse 2s infinite;
-  }
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 16px;background:linear-gradient(transparent,rgba(13,43,78,.95) 30%);z-index:90;display:flex;justify-content:center}
+.reorder-btn{background:linear-gradient(135deg,var(--terra),var(--gold));color:#fff;font-size:13px;font-weight:600;padding:10px 28px;border-radius:24px;border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(193,99,58,.3);transition:all .2s}
+.reorder-btn:active{transform:scale(.95)}
 
-  .hero-scroll::after {
-    content: '';
-    width: 1px;
-    height: 2rem;
-    background: linear-gradient(to bottom, rgba(201,169,110,0.6), transparent);
-  }
+/* Map */
+.map-wrap{border-radius:12px;overflow:hidden;border:1px solid rgba(201,169,110,.1)}
+.map-wrap iframe{display:block}
+.map-list{padding:10px}
+.map-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(201,169,110,.05)}
+.map-item:last-child{border-bottom:none}
+.map-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.map-info{flex:1}
+.map-info .n{font-size:12px;font-weight:600;color:var(--ivory)}
+.map-info .t{font-size:10px;color:rgba(248,242,230,.3)}
+.map-nav{padding:4px 10px;border-radius:5px;background:rgba(26,115,232,.1);color:#4A9DED;font-size:10px;text-decoration:none;font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:8px 12px}
+.legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:rgba(248,242,230,.35)}
+.legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-  }
+/* Info tabs */
+.info-tabs{display:flex;gap:6px;margin-bottom:12px}
+.info-tab{flex:1;padding:7px 0;font-size:12px;border-radius:8px;border:1px solid rgba(201,169,110,.1);background:transparent;color:rgba(248,242,230,.35);cursor:pointer;font-family:inherit;transition:all .15s}
+.info-tab.active{background:rgba(201,169,110,.15);color:var(--gold);font-weight:600;border-color:transparent}
+.tip-card{background:rgba(248,242,230,.03);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:8px;animation:fadeIn .3s ease both}
+.tip-card .icon{font-size:20px;margin-bottom:4px}
+.tip-card .tt{font-size:14px;font-weight:700;color:var(--ivory);margin-bottom:4px}
+.tip-card .td{font-size:12px;color:rgba(248,242,230,.5);line-height:1.6}
+.etiq-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.etiq-card{background:rgba(248,242,230,.03);border-top:3px solid var(--tile);border-radius:10px;padding:12px;animation:fadeIn .3s ease both}
+.etiq-card .ei{font-size:22px;margin-bottom:4px}
+.etiq-card .et{font-size:12px;font-weight:700;color:var(--ivory);margin-bottom:4px}
+.etiq-card .ed{font-size:11px;color:rgba(248,242,230,.45);line-height:1.5}
+.budget-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(201,169,110,.07);font-size:13px}
+.budget-row .cat{color:rgba(248,242,230,.65)}
+.budget-row .amt{color:var(--gold);font-weight:700;font-size:15px}
+.budget-total{margin-top:12px;padding:14px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+.budget-total .bl{color:var(--sand);font-weight:600;font-size:13px}
+.budget-total .bt{color:var(--gold);font-weight:700;font-size:20px}
 
-  /* ── SECTION HEADERS ── */
-  .section {
-    padding: 2rem 1.5rem;
-  }
+.footer{text-align:center;padding:20px 16px 30px;color:rgba(248,242,230,.18);font-size:11px}
+.footer .logo{font-size:18px;color:var(--gold);margin-bottom:6px;font-weight:700}
 
-  .section-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--tile);
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-  }
+/* Edit modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:flex-end;justify-content:center}
+.modal{background:var(--deep);border-radius:16px 16px 0 0;max-width:480px;width:100%;padding:20px 16px 30px;max-height:70vh;overflow-y:auto}
+.modal h3{font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px}
+.modal label{display:block;font-size:11px;color:rgba(248,242,230,.4);margin-bottom:4px;margin-top:10px}
+.modal input,.modal textarea{width:100%;background:rgba(248,242,230,.05);border:1px solid rgba(201,169,110,.15);border-radius:8px;padding:8px 10px;color:var(--ivory);font-size:13px;font-family:inherit;outline:none;resize:vertical}
+.modal input:focus,.modal textarea:focus{border-color:var(--gold)}
+.modal textarea{min-height:60px}
+.modal-btns{display:flex;gap:8px;margin-top:16px}
+.modal-btns button{flex:1;padding:10px;border-radius:10px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-save{background:var(--gold);color:var(--ink)}
+.btn-cancel{background:rgba(248,242,230,.06);color:rgba(248,242,230,.5)}
+.btn-delete{background:rgba(232,99,74,.1);color:#E8634A}
 
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--ink);
-    line-height: 1.2;
-    margin-bottom: 1.2rem;
-  }
-
-  /* ── OVERVIEW STRIP ── */
-  .overview {
-    background: var(--deep);
-    padding: 2rem 1.5rem;
-    color: var(--ivory);
-  }
-
-  .overview-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .overview-item {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(201,169,110,0.2);
-    border-radius: 0.5rem;
-    padding: 1rem;
-  }
-
-  .overview-item .num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .overview-item .label {
-    font-size: 0.7rem;
-    color: rgba(248,242,230,0.5);
-    letter-spacing: 0.1em;
-    margin-top: 0.2rem;
-  }
-
-  /* ── ROUTE MAP ── */
-  .route-visual {
-    background: white;
-    margin: 0 1.5rem;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-    position: relative;
-  }
-
-  .route-line {
-    position: absolute;
-    left: 3.2rem;
-    top: 2.5rem;
-    bottom: 2.5rem;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--cobalt), var(--tile), var(--terracotta), var(--gold));
-  }
-
-  .route-stop {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.2rem;
-    margin-bottom: 1.4rem;
-    position: relative;
-  }
-
-  .route-stop:last-child { margin-bottom: 0; }
-
-  .stop-dot {
-    width: 2.8rem;
-    height: 2.8rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-
-  .stop-info .city {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--ink);
-  }
-
-  .stop-info .days {
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-
-  .stop-info .highlights {
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-top: 0.2rem;
-  }
-
-  /* ── DAY CARDS ── */
-  .days-section {
-    padding: 2rem 1.5rem;
-    background: #F2EBE0;
-  }
-
-  .day-card {
-    background: white;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
-  .day-header {
-    padding: 1rem 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .day-header:hover { background: rgba(0,0,0,0.02); }
-
-  .day-num {
-    width: 2.8rem;
-    height: 2.8rem;
-    border-radius: 0.6rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .day-num .d { font-size: 0.55rem; font-weight: 600; letter-spacing: 0.1em; color: white; opacity: 0.8; text-transform: uppercase; }
-  .day-num .n { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: white; line-height: 1; }
-
-  .day-title-wrap { flex: 1; }
-  .day-city { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
-  .day-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ink); line-height: 1.3; }
-
-  .day-chevron {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    border: 1px solid #e0d8cc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.6rem;
-    color: var(--muted);
-    transition: transform 0.3s;
-  }
-
-  .day-body {
-    display: none;
-    padding: 0 1.2rem 1.2rem;
-    border-top: 1px solid #f0e8da;
-  }
-
-  .day-card.open .day-chevron { transform: rotate(180deg); }
-  .day-card.open .day-body { display: block; }
-
-  .timeline-item {
-    display: flex;
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #f5f0e8;
-  }
-
-  .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-  .time-tag {
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: var(--terracotta);
-    white-space: nowrap;
-    padding-top: 0.2rem;
-    min-width: 4.5rem;
-    letter-spacing: 0.02em;
-  }
-
-  .time-content .loc-name {
-    font-weight: 600;
-    font-size: 0.88rem;
-    color: var(--ink);
-    margin-bottom: 0.2rem;
-  }
-
-  .time-content .loc-desc {
-    font-size: 0.78rem;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .meal-tag {
-    display: inline-block;
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    padding: 0.15rem 0.5rem;
-    border-radius: 2rem;
-    margin-top: 0.3rem;
-    font-weight: 600;
-  }
-  .meal-tag.lunch { background: #FFF3E0; color: #E65100; }
-  .meal-tag.dinner { background: #E8F5E9; color: #2E7D32; }
-  .meal-tag.tip { background: #E3F2FD; color: #1565C0; }
-  .meal-tag.warn { background: #FCE4EC; color: #AD1457; }
-
-  /* ── TIPS SECTION ── */
-  .tips-section {
-    padding: 2rem 1.5rem;
-  }
-
-  .tip-card {
-    border-left: 3px solid var(--sand);
-    background: white;
-    padding: 1rem 1.2rem;
-    border-radius: 0 0.6rem 0.6rem 0;
-    margin-bottom: 0.8rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-
-  .tip-card .tip-icon { font-size: 1.2rem; margin-bottom: 0.3rem; }
-  .tip-card .tip-title { font-weight: 600; font-size: 0.88rem; margin-bottom: 0.3rem; }
-  .tip-card .tip-text { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
-
-  /* ── BUDGET TABLE ── */
-  .budget-section {
-    background: var(--deep);
-    padding: 2rem 1.5rem;
-  }
-
-  .budget-section .section-label { color: var(--sand); }
-  .budget-section .section-title { color: var(--ivory); }
-
-  .budget-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    color: rgba(248,242,230,0.85);
-    font-size: 0.82rem;
-  }
-
-  .budget-row:last-child { border-bottom: none; }
-  .budget-row .cat { display: flex; align-items: center; gap: 0.5rem; }
-  .budget-row .amt { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold); }
-
-  .budget-total {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: rgba(201,169,110,0.12);
-    border: 1px solid rgba(201,169,110,0.3);
-    border-radius: 0.6rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .budget-total .label { color: var(--sand); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; }
-  .budget-total .total { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); }
-
-  /* ── ETIQUETTE ── */
-  .etiq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    margin-top: 1rem;
-  }
-
-  .etiq-card {
-    background: white;
-    border-radius: 0.8rem;
-    padding: 1rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border-top: 3px solid var(--tile);
-  }
-
-  .etiq-card .e-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
-  .etiq-card .e-title { font-weight: 600; font-size: 0.8rem; color: var(--ink); margin-bottom: 0.3rem; }
-  .etiq-card .e-text { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
-
-  /* ── FOOTER ── */
-  .footer {
-    background: var(--ink);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    color: rgba(248,242,230,0.4);
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-  }
-
-  .footer .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-
-  /* Divider ornament */
-  .ornament {
-    text-align: center;
-    color: var(--sand);
-    font-size: 1.2rem;
-    opacity: 0.5;
-    padding: 1rem 0 0;
-  }
-
-  /* ── MAP BUTTON ── */
-  .map-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    background: #1A73E8;
-    color: white;
-    font-size: 0.65rem;
-    font-weight: 600;
-    padding: 0.25rem 0.6rem;
-    border-radius: 2rem;
-    text-decoration: none;
-    margin-top: 0.35rem;
-    letter-spacing: 0.04em;
-  }
-  .map-btn:active { opacity: 0.8; }
+.hidden{display:none!important}
 </style>
 </head>
 <body>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-pattern"></div>
-  <div class="hero-tiles"></div>
-  <div class="hero-subtitle">絲路古國 · 深度旅遊</div>
-  <h1 class="hero-title">烏茲別克<br><em>11日</em>之旅</h1>
-  <p class="hero-desc">4/24–5/4 · 塔什干 · 撒馬爾罕 · 布哈拉 · 希瓦</p>
-  <div class="hero-badges">
-    <span class="badge">35–40 歲適齡</span>
-    <span class="badge">文化深度遊</span>
-    <span class="badge">UNESCO 遺跡</span>
-    <span class="badge">在地美食</span>
-  </div>
-  <div class="hero-scroll">向下滑動</div>
-</section>
-
-<!-- OVERVIEW -->
-<section class="overview">
-  <div class="section-label">旅程概覽</div>
-  <div class="section-title" style="color:var(--ivory);font-family:'Playfair Display',serif;font-size:1.5rem;">11天 · 4城市 · 無數個靈魂時刻</div>
-  <div class="overview-grid">
-    <div class="overview-item"><div class="num">11</div><div class="label">天數</div></div>
-    <div class="overview-item"><div class="num">4</div><div class="label">城市</div></div>
-    <div class="overview-item"><div class="num">~$1500</div><div class="label">預估費用/人 USD</div></div>
-    <div class="overview-item"><div class="num">UNESCO</div><div class="label">世遺景點</div></div>
-  </div>
-</section>
-
-<!-- ROUTE -->
-<section class="section">
-  <div class="section-label">行程路線</div>
-  <div class="section-title">絲路四城巡禮</div>
-  <div class="route-visual">
-    <div class="route-line"></div>
-    <div class="route-stop">
-      <div class="stop-dot" style="background:var(--cobalt);">✈️</div>
-      <div class="stop-info">
-        <div class="city">塔什干 Tashkent</div>
-        <div class="days">4/24（五）–4/25（六）· Day 1–2 · 2晚</div>
-        <div class="highlights">地鐵宮殿 · 楚蘇巴扎 · 哈茲拉提伊瑪目建築群</div>
-      </div>
-    </div>
-    <div class="route-stop">
-      <div class="stop-dot" style="background:var(--tile);">🏛️</div>
-      <div class="stop-info">
-        <div class="city">撒馬爾罕 Samarkand</div>
-        <div class="days">4/26（日）–4/27（一）· Day 3–4 · 2晚</div>
-        <div class="highlights">列吉斯坦廣場 · 帖木兒陵 · 夏伊辛達陵墓群</div>
-      </div>
-    </div>
-    <div class="route-stop">
-      <div class="stop-dot" style="background:var(--terracotta);">🕌</div>
-      <div class="stop-info">
-        <div class="city">布哈拉 Bukhara</div>
-        <div class="days">4/28（二）–4/29（三）· Day 5–6 · 2晚</div>
-        <div class="highlights">方舟城堡 · 拉比豪茲 · 卡里安宣禮塔</div>
-      </div>
-    </div>
-    <div class="route-stop">
-      <div class="stop-dot" style="background:var(--gold);">🏰</div>
-      <div class="stop-info">
-        <div class="city">希瓦 Khiva</div>
-        <div class="days">4/30（四）–5/1（五）· Day 7–8 · 2晚</div>
-        <div class="highlights">伊欽卡拉古城 · 57m宣禮塔 · 星空沙漠</div>
-      </div>
-    </div>
-    <div class="route-stop">
-      <div class="stop-dot" style="background:var(--cobalt);">🔄</div>
-      <div class="stop-info">
-        <div class="city">返回塔什干</div>
-        <div class="days">5/2（六）–5/4（一）· Day 9–11 · 2晚</div>
-        <div class="highlights">購物採買 · 最後巡禮 · 5/4 晚啟程回家</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DAY BY DAY -->
-<section class="days-section">
-  <div class="section-label" style="margin-bottom:0.4rem;">每日行程</div>
-  <div class="section-title">點擊展開詳情</div>
-
-  <!-- Day 1 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--cobalt);">
-        <span class="d">Day</span><span class="n">1</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">4/24（五）· 塔什干</div>
-        <div class="day-title">抵達 · 養精蓄銳迎接絲路</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">20:15 落地</div>
-        <div class="time-content">
-          <div class="loc-name">✈️ 塔什干國際機場抵達</div>
-          <div class="loc-desc">入境、提行李、出關約需30–45分鐘，預計20:45–21:00出航廈。搭 Yandex Go 至市區約25–40分鐘，預計抵達飯店約 21:30–22:00。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Tashkent+International+Airport" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag tip">💡 車資約 60,000–100,000 UZS，務必用 Yandex Go 叫車，避免野雞車</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">21:30 後</div>
-        <div class="time-content">
-          <div class="loc-name">🏨 入住飯店 · 簡單補給</div>
-          <div class="loc-desc">到達已晚，不建議出門觀光。可在飯店附近便利商店採購水果、飲品與明天早餐備用食品，然後早點休息。</div>
-          <span class="meal-tag tip">💡 阿米爾帖木兒廣場夜景明天傍晚補逛，效果更好</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">注意</div>
-        <div class="time-content">
-          <div class="loc-name">📋 抵達當晚準備事項</div>
-          <div class="loc-desc">確認明天高鐵車票已訂妥（4/26 08:00 塔什干→撒馬爾罕）。下載 Yandex Go、Google Maps 離線地圖。換少量烏茲別克索姆備用（機場匯率尚可）。</div>
-          <span class="meal-tag warn">⚠️ 高鐵熱門班次易售罄，今晚確認票況</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 2 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--cobalt);">
-        <span class="d">Day</span><span class="n">2</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">4/25（六）· 塔什干</div>
-        <div class="day-title">老城靈魂與地下宮殿</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">08:30–09:30</div>
-        <div class="time-content">
-          <div class="loc-name">🕌 哈茲拉提伊瑪目建築群</div>
-          <div class="loc-desc">世界最古老古蘭經手抄本（7世紀），列入UNESCO遺產。建築群免費入場，圖書館門票約 30,000 UZS。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Khast+Imam+Complex+Tashkent" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">09:30–11:30</div>
-        <div class="time-content">
-          <div class="loc-name">🛒 楚蘇巴扎 Chorsu Bazaar</div>
-          <div class="loc-desc">藍綠色大穹頂下的超大傳統市場。試吃香料、乾果與堅果，可品嚐現做拉麵或烤肉串，價格極為親民。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Chorsu+Bazaar+Tashkent" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">11:30–12:30</div>
-        <div class="time-content">
-          <div class="loc-name">🏫 庫凱達什神學院 + 朱瑪清真寺</div>
-          <div class="loc-desc">楚蘇巴扎旁，15世紀的庫凱達什神學院是塔什干現存最大的歷史建築之一，與朱瑪清真寺相鄰，步行即達。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Kukeldash+Madrasah+Tashkent" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">12:30–13:30</div>
-        <div class="time-content">
-          <div class="loc-name">🍚 貝什科宗抓飯中心</div>
-          <div class="loc-desc">全世界最大的抓飯鍋！節慶抓飯配鵪鶉蛋、馬肉腸，認識烏茲別克國菜。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Besh+Qozon+Plov+Center+Tashkent" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag lunch">☀️ 午餐</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">14:30–16:30</div>
-        <div class="time-content">
-          <div class="loc-name">🚇 地鐵宮殿巡禮</div>
-          <div class="loc-desc">必訪三站：Alisher Navoi（浮雕天花板）、Kosmonavtlar（太空主題）、Mustaqillik Maydoni（大理石列柱）。每站停留10–15分鐘，現已可自由拍攝。</div>
-          <span class="meal-tag tip">💡 地鐵約 1,800 UZS/次</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">16:30–18:00</div>
-        <div class="time-content">
-          <div class="loc-name">🎨 烏茲別克國家應用藝術博物館</div>
-          <div class="loc-desc">館內收藏精美的蘇扎尼刺繡（Suzani）、陶瓷與木雕，展館本身是19世紀的傳統宅邸，建築本身就值得一看。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=State+Museum+of+Applied+Arts+Tashkent" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">18:00–19:30</div>
-        <div class="time-content">
-          <div class="loc-name">🗽 阿米爾帖木兒廣場 + Broadway 步行街</div>
-          <div class="loc-desc">帖木兒騎馬銅像、蘇聯巨構與新摩天大樓交織的夜間天際線，是塔什干最好的城市印象。夜晚燈光效果比白天更漂亮。沿 Broadway 步行街散步，傍晚熱鬧適合消食。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Amir+Timur+Square+Tashkent" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag tip">💡 Day 1 因抵達太晚錯過，今晚補回來，反而看到最美的夜景版本</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🍷 Platan Restaurant</div>
-          <div class="loc-desc">烏茲別克×歐式融合，搭配當地葡萄酒。或前往 Caravan 餐廳體驗中亞風情現代料理。地鐵末班車約23:00，深夜回飯店可用 Yandex Go。</div>
-          <span class="meal-tag warn">⚠️ 明早搭高鐵，建議今晚確認車票</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--tile);">
-        <span class="d">Day</span><span class="n">3</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">4/26（日）· → 撒馬爾罕</div>
-        <div class="day-title">帝木兒帝國初次相遇</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">08:00 出發</div>
-        <div class="time-content">
-          <div class="loc-name">🚄 阿夫羅西約布 760Ф 班次</div>
-          <div class="loc-desc">塔什干 08:00 出發 → 撒馬爾罕 10:08 抵達，車程 2 小時 8 分。請提前 30 分鐘到站，出示護照及電子票券。</div>
-          <span class="meal-tag tip">💡 訂票開放出發前45天，建議盡快至 eticket.railway.uz 訂購</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">11:00–13:00</div>
-        <div class="time-content">
-          <div class="loc-name">🏛️ 古里阿米爾陵墓</div>
-          <div class="loc-desc">帖木兒大帝長眠之地，藍色肋狀穹頂、深綠玉石棺蓋。印度泰姬瑪哈陵的建築原型。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Gur-e-Amir+Mausoleum+Samarkand" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">午餐</div>
-        <div class="time-content">
-          <div class="loc-name">🍖 Shokhrukh Nur 餐廳</div>
-          <div class="loc-desc">距列吉斯坦廣場步行數分鐘，嫩羊肉串+手工拉麵+當地啤酒。</div>
-          <span class="meal-tag lunch">☀️ 在地午餐</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">14:30–17:00</div>
-        <div class="time-content">
-          <div class="loc-name">🌟 列吉斯坦廣場 Registan</div>
-          <div class="loc-desc">三座神學院環抱的世界最壯觀伊斯蘭建築群。烏魯別克（1420）、謝爾多爾（1636）、帖拉科里（1660）。日落是黃金拍攝時段。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Registan+Square+Samarkand" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🌙 Emirhan 餐廳頂樓露台</div>
-          <div class="loc-desc">可直望列吉斯坦廣場夜景燈光，旺季請提前預約露台。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Emirhan+Restaurant+Samarkand" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag dinner">🌙 旅程最難忘晚餐之一</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 4 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--tile);">
-        <span class="d">Day</span><span class="n">4</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">4/27（一）· 撒馬爾罕</div>
-        <div class="day-title">陵墓之路與天文台星空</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">08:30–10:30</div>
-        <div class="time-content">
-          <div class="loc-name">💎 夏伊辛達陵墓群</div>
-          <div class="loc-desc">最令人屏息的陵墓走廊，14–15世紀的釉磚藝術巔峰。石階光滑請穿防滑鞋！傳說往返需數到同一數字才算誠心。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Shah-i-Zinda+Samarkand" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">10:30–12:00</div>
-        <div class="time-content">
-          <div class="loc-name">🕌 比比哈努姆清真寺 + 錫亞布巴扎</div>
-          <div class="loc-desc">曾是全球最大清真寺。正對面的錫亞布巴扎以17種撒馬爾罕圓餅聞名——全烏茲別克公認最好吃的麵包。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Bibi+Khanym+Mosque+Samarkand" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">午餐</div>
-        <div class="time-content">
-          <div class="loc-name">🍛 撒馬爾罕抓飯中心 N1</div>
-          <div class="loc-desc">當地人公認最好的抓飯，嫩肉堆疊油亮米飯，配甜紅蘿蔔與鷹嘴豆，份量豪邁。</div>
-          <span class="meal-tag lunch">☀️ 在地人私房推薦</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">14:00–15:30</div>
-        <div class="time-content">
-          <div class="loc-name">🔭 烏魯別克天文台遺址</div>
-          <div class="loc-desc">1428年建造，地下保存的弧形六分儀曾精準測繪1000+顆恆星位置，精度200年無人超越。旁為阿夫羅西亞博物館（粟特壁畫）。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Ulugh+Beg+Observatory+Samarkand" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🕯️ Platan Restaurant 撒馬爾罕</div>
-          <div class="loc-desc">必點馬斯塔瓦湯，搭配當地葡萄酒與新鮮烤饢。旺季非常熱門請提前訂位。</div>
-          <span class="meal-tag warn">⚠️ 明天搭高鐵往布哈拉，建議確認09:50班次</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 5 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--terracotta);">
-        <span class="d">Day</span><span class="n">5</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">4/28（二）· → 布哈拉</div>
-        <div class="day-title">穿越時空的千年聖城</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">09:50 出發</div>
-        <div class="time-content">
-          <div class="loc-name">🚄 阿夫羅西約布 762Ф 班次</div>
-          <div class="loc-desc">撒馬爾罕 09:50 出發 → 布哈拉 11:19 抵達，車程 1 小時 29 分。注意：布哈拉火車站距舊城約 12 公里，需再搭計程車 20 分鐘（40,000–60,000 UZS）。</div>
-          <span class="meal-tag tip">💡 同一張車票可從塔什干直達布哈拉，不需換車</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">12:30–13:30</div>
-        <div class="time-content">
-          <div class="loc-name">🌊 拉比豪茲廣場午餐</div>
-          <div class="loc-desc">古老梧桐樹蔭下、人工水池旁用餐。Labi Hovuz Restaurant——烤肉串與酸奶沙拉，傍晚有現場音樂。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Lyabi+Hauz+Bukhara" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag lunch">☀️ 布哈拉最經典用餐場景</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">14:00–17:00</div>
-        <div class="time-content">
-          <div class="loc-name">🏪 穹頂交易市場散步</div>
-          <div class="loc-desc">16世紀絲路巴扎：珠寶穹頂→帽子穹頂→貨幣穹頂，如今賣刺繡地毯香料，議價是禮儀。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Toki+Zargaron+Bukhara" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">17:00–18:30</div>
-        <div class="time-content">
-          <div class="loc-name">🗼 波伊卡里安建築群</div>
-          <div class="loc-desc">45.6公尺的卡里安宣禮塔（1127年），連成吉思汗都被震懾而保留的古塔。一萬人清真寺+米里阿拉伯神學院。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Kalyan+Minaret+Bukhara" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🏡 多斯頓之家（Doston House）</div>
-          <div class="loc-desc">隱藏巷弄中的私宅餐廳，僅接受15人預約。布哈拉四種植物油抓飯被譽為全烏茲別克最好，可能有傳統音樂表演。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Doston+House+Bukhara" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag warn">⚠️ 必須提前預約！</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 6 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--terracotta);">
-        <span class="d">Day</span><span class="n">6</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">4/29（三）· 布哈拉</div>
-        <div class="day-title">方舟城堡與手工藝職人</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">09:00–10:30</div>
-        <div class="time-content">
-          <div class="loc-name">🏯 方舟城堡 Ark Fortress</div>
-          <div class="loc-desc">使用超過千年的土築城堡，登城牆可俯瞰整座舊城屋頂風光，是拍攝布哈拉全景的絕佳位置。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Ark+Fortress+Bukhara" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">10:30–12:30</div>
-        <div class="time-content">
-          <div class="loc-name">🕌 博洛豪茲清真寺 + 伊斯邁爾·薩曼尼陵墓</div>
-          <div class="loc-desc">20根精雕木柱倒映水池中。10世紀的薩曼尼陵墓是中亞現存最古老伊斯蘭建築，純磚砌幾何創造光影魔術。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Ismail+Samani+Mausoleum+Bukhara" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">12:30–13:30</div>
-        <div class="time-content">
-          <div class="loc-name">🍖 Old Bukhara Restaurant</div>
-          <div class="loc-desc">位於納克什班迪街上，擅長傳統布哈拉烤肉與曼提餃子（Manti），店內裝飾保有老城氛圍，當地人也常光顧，是真正的在地飲食。</div>
-          <span class="meal-tag lunch">☀️ 在地午餐</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">14:00–16:00</div>
-        <div class="time-content">
-          <div class="loc-name">🎨 手工藝工坊 + 瑪戈奇阿塔里清真寺</div>
-          <div class="loc-desc">擇一或組合：穹頂市集中的銅器雕花、細密畫、刺繡工坊，職人在門前工作歡迎觀摩甚至體驗。或前往瑪戈奇阿塔里清真寺（Magoki-Attori Mosque）——布哈拉最古老清真寺，地基低於現今街面數公尺，從拜火教神廟到伊斯蘭清真寺的演變歷史斷面清晰可見。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Magoki+Attori+Mosque+Bukhara" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag tip">💡 深度旅遊精華！別走馬看花</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">16:00–18:00</div>
-        <div class="time-content">
-          <div class="loc-name">🍵 拉比豪茲茶館發呆時光</div>
-          <div class="loc-desc">一壺綠茶配堅果杏乾，看當地人下棋、孩童嬉戲、鴿子在梧桐樹間盤旋。這是布哈拉最珍貴的體驗——什麼都不做，就只是在場。</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🍺 池畔茶館 (Chayhana)</div>
-          <div class="loc-desc">拉麵+布哈拉烤魚+Sarbast生啤，現場民族音樂。夜間卡里安宣禮塔打燈格外莊嚴。</div>
-          <span class="meal-tag warn">⚠️ 明天包車前往希瓦，提前確認包車安排</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 7 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--gold);">
-        <span class="d">Day</span><span class="n">7</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">4/30（四）· → 希瓦</div>
-        <div class="day-title">穿越克孜勒庫姆沙漠</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">08:00 出發</div>
-        <div class="time-content">
-          <div class="loc-name">🚗 包車 → 希瓦（約6小時）</div>
-          <div class="loc-desc">穿越克孜勒庫姆沙漠，沿阿姆河行駛。棉花田→黃沙漫漫→駱駝與帳篷，是一堂中亞地理課。</div>
-          <span class="meal-tag tip">💡 四人分攤約每人$25–35 USD</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">午途停</div>
-        <div class="time-content">
-          <div class="loc-name">🍽️ Zakhratun 餐廳</div>
-          <div class="loc-desc">中途休息午餐補給，讓旅途更舒適。</div>
-          <span class="meal-tag lunch">☀️ 沙漠途中午餐</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">15:00–18:00</div>
-        <div class="time-content">
-          <div class="loc-name">🏰 伊欽卡拉古城初見</div>
-          <div class="loc-desc">先讓自己迷失在泥磚迷宮中，不急著逐一參觀景點。步行至伊斯蘭霍查宣禮塔（57公尺），登頂俯瞰日落全城。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Ichan+Kala+Khiva" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag tip">💡 日落是希瓦最震撼的體驗</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🌿 Terrassa Cafe & Restaurant</div>
-          <div class="loc-desc">古城廣場旁露台，必點綠麵（Shivit Oshi，香草染色手工麵）與南瓜曼提餃子，希瓦獨有地方料理。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Terrassa+Cafe+Khiva" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag dinner">🌙 希瓦特色料理</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 8 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--gold);">
-        <span class="d">Day</span><span class="n">8</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">5/1（五）· 希瓦</div>
-        <div class="day-title">中亞最完整的活態博物館</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">08:00–08:30</div>
-        <div class="time-content">
-          <div class="loc-name">🌅 清晨獨步古城</div>
-          <div class="loc-desc">遊客湧入前的伊欽卡拉最魔幻，陽光斜射泥磚牆，街道幾乎空無一人。</div>
-          <span class="meal-tag tip">💡 全程最值得早起的一刻</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">08:30–10:30</div>
-        <div class="time-content">
-          <div class="loc-name">🏛️ 卡爾塔米諾爾 + 庫尼亞方舟</div>
-          <div class="loc-desc">未完成的綠松石胖宣禮塔（1855年可汗逝世後永久停工，反成地標）。登上庫尼亞方舟瞭望台360度俯瞰古城。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Kalta+Minor+Minaret+Khiva" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">10:30–12:30</div>
-        <div class="time-content">
-          <div class="loc-name">🏛️ 朱瑪清真寺 + 塔什豪利宮</div>
-          <div class="loc-desc">213根精雕木柱大廳，最古老的柱子可追溯至10世紀，每根雕刻紋飾都不同。19世紀皇宮後宮彩繪天花板令人嘆為觀止。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Juma+Mosque+Khiva" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">午餐</div>
-        <div class="time-content">
-          <div class="loc-name">🌸 Khiva Moon 花園餐廳</div>
-          <div class="loc-desc">花拉子模式抓飯（更多蔬菜香料層次）與蛋餃子（Tukhum Barak），氛圍浪漫服務親切。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Khiva+Moon+Restaurant" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag lunch">☀️ 午餐</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">14:00–18:00</div>
-        <div class="time-content">
-          <div class="loc-name">💫 帕赫拉旺陵墓 + 手工藝巷弄</div>
-          <div class="loc-desc">守護聖人墓（藍白磁磚最精美）→登伊斯蘭霍查頂（最佳全景）→木雕絲織工坊漫步→城牆上感受泥磚城市紋理。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Pahlavon+Mahmud+Mausoleum+Khiva" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">深夜</div>
-        <div class="time-content">
-          <div class="loc-name">⭐ 沙漠星空</div>
-          <div class="loc-desc">城牆上或庫尼亞方舟高處靜觀星空，沙漠邊緣光害極低，繁星格外壯觀。</div>
-          <span class="meal-tag warn">⚠️ 明天搭飛機返塔什干，確認烏爾根奇機場接送</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 9 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--cobalt);">
-        <span class="d">Day</span><span class="n">9</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">5/2（六）· → 回塔什干</div>
-        <div class="day-title">回到起點，不同的眼光</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">07:50 出發</div>
-        <div class="time-content">
-          <div class="loc-name">🚕 前往烏爾根奇機場（UGC）</div>
-          <div class="loc-desc">從希瓦古城搭計程車約 30–35 分鐘抵達烏爾根奇機場，建議 HY52 起飛前 1.5 小時（07:50）出發。</div>
-          <span class="meal-tag tip">💡 國內線建議提前 1 小時到機場</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">09:30 起飛</div>
-        <div class="time-content">
-          <div class="loc-name">✈️ HY52 烏爾根奇 → 塔什干</div>
-          <div class="loc-desc">Uzbekistan Airways HY52，09:30 起飛，10:50 抵達塔什干國際機場，飛行約 1 小時 20 分。票價約 $50–80 USD，建議至 uzairways.com 官網提前訂購。</div>
-          <span class="meal-tag tip">💡 訂票網址：uzairways.com</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">11:30–14:00</div>
-        <div class="time-content">
-          <div class="loc-name">🏛️ 獨立廣場 + 阿米爾帖木兒博物館</div>
-          <div class="loc-desc">10:50 落地，搭計程車入市區約 30 分鐘，11:30 抵達。以全新眼光回顧帖木兒帝國歷史，為整趟旅程做知識收尾。Broadway步行街傍晚熱鬧適合散步消食。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Amir+Timur+Museum+Tashkent" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">18:00–19:30</div>
-        <div class="time-content">
-          <div class="loc-name">🛍️ 購物採買</div>
-          <div class="loc-desc">Tashkent City Mall 或舊城手工藝品店：蘇扎尼刺繡、陶瓷、絲巾、藏紅花香料。</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🥂 Tumbler Bar & Lounge</div>
-          <div class="loc-desc">塔什干評價最高餐酒館之一，精緻創意料理與手工調酒，現代優雅氛圍，慶祝旅途圓滿。</div>
-          <span class="meal-tag dinner">🌙 慶功晚宴</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 10 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:var(--muted);">
-        <span class="d">Day</span><span class="n">10</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">5/3（日）· 塔什干</div>
-        <div class="day-title">最後的巡禮與慶功晚宴</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">09:30–11:30</div>
-        <div class="time-content">
-          <div class="loc-name">🛒 楚蘇巴扎最後採買</div>
-          <div class="loc-desc">撒馬爾罕圓餅（可保存多日）、乾果堅果禮盒、孜然藏紅花香料粉、手工陶瓷小碗。晨光下的穹頂建築格外上相。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Chorsu+Bazaar+Tashkent" target="_blank">📍 Google Maps</a>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">午餐</div>
-        <div class="time-content">
-          <div class="loc-name">🔥 Tandiriy 烤爐料理</div>
-          <div class="loc-desc">楚蘇巴扎不遠處，烤爐烤肉與烤餅，快速美味。</div>
-          <span class="meal-tag lunch">☀️ 午餐</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">14:00–18:00</div>
-        <div class="time-content">
-          <div class="loc-name">🛍️ 購物採買</div>
-          <div class="loc-desc">Tashkent City Mall 或舊城手工藝品店：蘇扎尼刺繡、陶瓷、絲巾、藏紅花香料。</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">晚餐</div>
-        <div class="time-content">
-          <div class="loc-name">🥂 Tumbler Bar & Lounge</div>
-          <div class="loc-desc">塔什干評價最高餐酒館之一，精緻創意料理與手工調酒，慶祝旅途圓滿。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Tumbler+Bar+Lounge+Tashkent" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag dinner">🌙 慶功晚宴</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 11 -->
-  <div class="day-card" onclick="toggleDay(this)">
-    <div class="day-header">
-      <div class="day-num" style="background:#4A4A4A;">
-        <span class="d">Day</span><span class="n">11</span>
-      </div>
-      <div class="day-title-wrap">
-        <div class="day-city">5/4（一）· 塔什干 → 回家</div>
-        <div class="day-title">帶著藍色記憶啟程</div>
-      </div>
-      <div class="day-chevron">▼</div>
-    </div>
-    <div class="day-body">
-      <div class="timeline-item">
-        <div class="time-tag">上午自由</div>
-        <div class="time-content">
-          <div class="loc-name">☕ 飯店早餐 + 收行李</div>
-          <div class="loc-desc">輕鬆的最後早晨，整理行李，把沒寄出的明信片補寫完，或者回到阿米爾帖木兒廣場再走一圈告別。</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">13:00–15:00</div>
-        <div class="time-content">
-          <div class="loc-name">🕌 哈茲拉提伊瑪目建築群（選）</div>
-          <div class="loc-desc">若還有時間，可在這座寧靜庭院做最後的沉澱，感受旅程首尾呼應。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Khast+Imam+Complex+Tashkent" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag tip">💡 這裡是 Day 2 的第一站，最後再訪別有感觸</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">18:40</div>
-        <div class="time-content">
-          <div class="loc-name">🚕 出發前往機場</div>
-          <div class="loc-desc">航班 21:40 起飛，建議 18:40 前出發。市區至機場約20–30分鐘，國際線建議提前3小時到。</div>
-          <span class="meal-tag warn">⚠️ 確認護照、登機證、所有電子票券，超額乾果保留收據</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="time-tag">21:40 ✈️</div>
-        <div class="time-content">
-          <div class="loc-name">✈️ 塔什干國際機場出發</div>
-          <div class="loc-desc">願你帶著滿滿的藍色琉璃磚記憶、抓飯的香氣與茶館的溫度，平安回家。</div>
-          <a class="map-btn" href="https://maps.google.com/?q=Tashkent+International+Airport" target="_blank">📍 Google Maps</a>
-          <span class="meal-tag dinner">🌙 再見，烏茲別克</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BUDGET -->
-<section class="budget-section">
-  <div class="section-label">費用估算</div>
-  <div class="section-title">每人預估預算</div>
-  <div class="budget-row"><div class="cat">✈️ 國際機票（來回）</div><div class="amt">$400–600</div></div>
-  <div class="budget-row"><div class="cat">🏨 住宿（10晚精品飯店）</div><div class="amt">$250–400</div></div>
-  <div class="budget-row"><div class="cat">🚄 城市間交通</div><div class="amt">$80–120</div></div>
-  <div class="budget-row"><div class="cat">🍽️ 餐飲（10天）</div><div class="amt">$150–200</div></div>
-  <div class="budget-row"><div class="cat">🎫 景點門票</div><div class="amt">$50–80</div></div>
-  <div class="budget-row"><div class="cat">🛍️ 購物紀念品</div><div class="amt">$100–200</div></div>
-  <div class="budget-row"><div class="cat">🚕 市內交通雜費</div><div class="amt">$50–80</div></div>
-  <div class="budget-total">
-    <div class="label">總計估算 / 人</div>
-    <div class="total">~$1,080–1,680</div>
-  </div>
-</section>
-
-<!-- ETIQUETTE -->
-<section class="section">
-  <div class="section-label">旅行前必知</div>
-  <div class="section-title">文化禮儀指南</div>
-  <div class="etiq-grid">
-    <div class="etiq-card">
-      <div class="e-icon">👗</div>
-      <div class="e-title">宗教場所著裝</div>
-      <div class="e-text">覆蓋肩膀與膝蓋。女性建議隨身攜帶輕薄圍巾，進門前脫鞋。</div>
-    </div>
-    <div class="etiq-card">
-      <div class="e-icon">📸</div>
-      <div class="e-title">拍照禮儀</div>
-      <div class="e-text">拍攝當地人前先微笑徵得同意，避免拍攝政府建築與軍事設施。</div>
-    </div>
-    <div class="etiq-card">
-      <div class="e-icon">🍵</div>
-      <div class="e-title">茶文化</div>
-      <div class="e-text">倒茶反覆三次叫「Kaytar」是敬意儀式。進門必喝茶，拒絕是失禮。</div>
-    </div>
-    <div class="etiq-card">
-      <div class="e-icon">🤝</div>
-      <div class="e-title">性別互動</div>
-      <div class="e-text">初次見面以右手輕放胸前微微鞠躬，勿主動伸手握手。</div>
-    </div>
-    <div class="etiq-card">
-      <div class="e-icon">💰</div>
-      <div class="e-title">市場議價</div>
-      <div class="e-text">帶著微笑開價，這是絲路延續至今的溫度，是互相尊重的社交儀式。</div>
-    </div>
-    <div class="etiq-card">
-      <div class="e-icon">🙏</div>
-      <div class="e-title">禮拜禁忌</div>
-      <div class="e-text">勿從正在禮拜的人前方經過。若受邀做客，帶非酒精小禮物如水果。</div>
-    </div>
-  </div>
-</section>
-
-<!-- TIPS -->
-<section class="tips-section" style="background:#F2EBE0;">
-  <div class="section-label">出發前準備</div>
-  <div class="section-title" style="margin-bottom:1.2rem;">實用小貼士</div>
-
-  <div class="tip-card">
-    <div class="tip-icon">📅</div>
-    <div class="tip-title">最佳旅遊季節</div>
-    <div class="tip-text">4–5月（春花）或9–10月（秋高氣爽）是最理想的季節。夏季（6–8月）氣溫可達40°C，冬季景點部分關閉。</div>
-  </div>
-
-  <div class="tip-card" style="border-color:var(--cobalt);">
-    <div class="tip-icon">🛂</div>
-    <div class="tip-title">簽證</div>
-    <div class="tip-text">台灣護照持有者可申請烏茲別克電子簽證（e-Visa），在官方網站線上申請，通常2–3個工作天核發，費用約$20 USD。</div>
-  </div>
-
-  <div class="tip-card" style="border-color:var(--terracotta);">
-    <div class="tip-icon">📱</div>
-    <div class="tip-title">必備APP</div>
-    <div class="tip-text">Yandex Go（計程車）、Google Maps（離線地圖）、Uzcard Pay（支付）。當地SIM卡建議在機場購買Ucell或Beeline，10天資費約$10 USD。</div>
-  </div>
-
-  <div class="tip-card" style="border-color:var(--tile);">
-    <div class="tip-icon">💱</div>
-    <div class="tip-title">貨幣</div>
-    <div class="tip-text">烏茲別克索姆（UZS），$1 USD ≈ 12,700 UZS。ATM與換匯所常見，建議帶美元現金備用。大部分餐廳接受現金，景點僅收現金。</div>
-  </div>
-
-  <div class="tip-card" style="border-color:var(--gold);">
-    <div class="tip-icon">🎒</div>
-    <div class="tip-title">必帶物品</div>
-    <div class="tip-text">防曬乳SPF50+、防塵口罩（沙漠路段）、輕薄圍巾（清真寺備用）、防滑鞋（夏伊辛達石階）、備份電池。</div>
-  </div>
-</section>
-
-<!-- OUTFIT SECTION -->
-<section style="padding:2rem 1.5rem; background:#F2EBE0;">
-  <div class="section-label">旅行穿搭指南</div>
-  <div class="section-title">男女穿搭 · 10天這樣打包</div>
-
-  <!-- Climate bar -->
-  <div style="background:var(--deep);border-radius:0.8rem;padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;gap:0.8rem;align-items:flex-start;">
-    <span style="font-size:1.3rem;flex-shrink:0;">🌡️</span>
-    <div>
-      <div style="font-weight:600;font-size:0.82rem;color:var(--sand);margin-bottom:0.25rem;">氣候 × 穿搭核心原則</div>
-      <div style="font-size:0.75rem;color:rgba(248,242,230,0.75);line-height:1.65;">春秋季日夜溫差大（白天25–30°C / 夜晚降至10–15°C）。夏季最高40°C且紫外線超強。宗教場所著裝要求隨時可能碰到，建議每天出門都預設自己可能進清真寺。</div>
-    </div>
-  </div>
-
-  <!-- Tab switcher -->
-  <div style="display:flex;gap:0.5rem;margin-bottom:1.2rem;">
-    <button id="btn-male" onclick="switchOutfit('male')"
-      style="flex:1;padding:0.6rem;border-radius:2rem;border:none;background:var(--cobalt);color:white;font-family:'Noto Serif TC',serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;">
-      👔 男性穿搭
-    </button>
-    <button id="btn-female" onclick="switchOutfit('female')"
-      style="flex:1;padding:0.6rem;border-radius:2rem;border:2px solid var(--terracotta);background:transparent;color:var(--terracotta);font-family:'Noto Serif TC',serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;">
-      👗 女性穿搭
-    </button>
-  </div>
-
-  <!-- MALE -->
-  <div id="outfit-male">
-
-    <!-- Key rules -->
-    <div style="background:white;border-radius:0.8rem;padding:1rem 1.2rem;margin-bottom:1rem;border-left:4px solid var(--cobalt);">
-      <div style="font-weight:600;font-size:0.85rem;color:var(--cobalt);margin-bottom:0.6rem;">男性必守穿搭守則</div>
-      <div style="display:flex;flex-direction:column;gap:0.5rem;">
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--tile);font-weight:600;flex-shrink:0;">✓</span>
-          <span>進入清真寺／神學院時，<strong>長褲為必須</strong>，短褲絕對不可（即使是膝上短褲）</span>
-        </div>
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--tile);font-weight:600;flex-shrink:0;">✓</span>
-          <span>肩膀可以裸露，但在較保守的宗教場所建議穿有袖上衣</span>
-        </div>
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--terracotta);font-weight:600;flex-shrink:0;">✗</span>
-          <span>夏季觀光時切勿只穿無袖背心逛市集或宗教遺址，當地人視為失禮</span>
-        </div>
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--tile);font-weight:600;flex-shrink:0;">✓</span>
-          <span>布哈拉與希瓦較保守，塔什干與撒馬爾罕相對開放，彈性調整</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Outfit cards -->
-    <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1rem;">
-
-      <div style="background:white;border-radius:0.8rem;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-        <div style="background:var(--cobalt);padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:white;font-weight:600;font-size:0.82rem;">場景 1｜古城觀光 · 日間</span>
-          <span style="background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:1rem;">塔什干→撒馬爾罕→布哈拉→希瓦</span>
-        </div>
-        <div style="padding:0.9rem 1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;font-size:0.76rem;">
-            <div style="background:#F0F4FF;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--cobalt);font-weight:600;margin-bottom:0.2rem;">上身</div>
-              <div style="color:var(--ink);">棉質／麻質 POLO 衫或有領輕薄長袖，淺色系（米白、淺藍、淺灰）</div>
-            </div>
-            <div style="background:#F0F4FF;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--cobalt);font-weight:600;margin-bottom:0.2rem;">下身</div>
-              <div style="color:var(--ink);">卡其色或深藍色長褲（七分褲勉強可接受但不建議），避免過緊牛仔褲（悶熱）</div>
-            </div>
-            <div style="background:#F0F4FF;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--cobalt);font-weight:600;margin-bottom:0.2rem;">鞋子</div>
-              <div style="color:var(--ink);">易脫穿的健走鞋或帆布鞋，進清真寺需頻繁脫鞋，避免綁帶複雜款式</div>
-            </div>
-            <div style="background:#F0F4FF;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--cobalt);font-weight:600;margin-bottom:0.2rem;">配件</div>
-              <div style="color:var(--ink);">輕薄帽子或棒球帽（防曬）、太陽眼鏡、薄款腰包裝護照現金</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:white;border-radius:0.8rem;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-        <div style="background:var(--tile);padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:white;font-weight:600;font-size:0.82rem;">場景 2｜沙漠包車移動日</span>
-          <span style="background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:1rem;">Day 7 布哈拉→希瓦</span>
-        </div>
-        <div style="padding:0.9rem 1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;font-size:0.76rem;">
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">上身</div>
-              <div style="color:var(--ink);">排汗速乾長袖（推薦 Uniqlo AIRism 或同類款），前後可通風最佳</div>
-            </div>
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">下身</div>
-              <div style="color:var(--ink);">輕薄快乾長褲，顏色選深色系避免沙塵明顯</div>
-            </div>
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">防護</div>
-              <div style="color:var(--ink);">薄款頸部遮陽巾或口罩備用（沙漠風沙）、SPF50+ 防曬乳每2小時補</div>
-            </div>
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">隨身包</div>
-              <div style="color:var(--ink);">1.5L 以上水壺，沙漠路段補水站稀少，車上備足飲用水</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:white;border-radius:0.8rem;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-        <div style="background:var(--terracotta);padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:white;font-weight:600;font-size:0.82rem;">場景 3｜精緻晚餐 · 夜間</span>
-          <span style="background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:1rem;">Emirhan 露台 / Doston House</span>
-        </div>
-        <div style="padding:0.9rem 1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;font-size:0.76rem;">
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">上身</div>
-              <div style="color:var(--ink);">簡約合身Polo衫或輕薄針織衫，深藍、酒紅、卡其皆適合</div>
-            </div>
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">下身</div>
-              <div style="color:var(--ink);">深色長褲（卡其或深藍牛仔），避免運動褲或短褲</div>
-            </div>
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">外層</div>
-              <div style="color:var(--ink);">薄款開衫或輕便夾克，夜晚溫差大，春秋季必備</div>
-            </div>
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">鞋子</div>
-              <div style="color:var(--ink);">乾淨皮革或麂皮休閒鞋，比白色運動鞋更適合有氣氛的晚餐場合</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Packing list male -->
-    <div style="background:white;border-radius:0.8rem;padding:1rem 1.2rem;border-left:4px solid var(--gold);">
-      <div style="font-weight:600;font-size:0.85rem;color:var(--ink);margin-bottom:0.7rem;">🧳 男性行李清單（10天）</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;font-size:0.75rem;color:var(--muted);">
-        <div>✦ POLO衫／有領上衣 × 5</div>
-        <div>✦ 輕薄長袖速乾衫 × 2</div>
-        <div>✦ 長褲 × 3（1深1淺1快乾）</div>
-        <div>✦ 薄款開衫或夾克 × 1</div>
-        <div>✦ 內褲 × 7–8</div>
-        <div>✦ 輕薄棉襪 × 5雙</div>
-        <div>✦ 易脫穿健走鞋 × 1雙</div>
-        <div>✦ 輕便晚餐鞋 × 1雙</div>
-        <div>✦ 遮陽帽 × 1</div>
-        <div>✦ 腰包 × 1</div>
-        <div>✦ 折疊購物袋 × 1（市場採買）</div>
-        <div>✦ 防曬乳 SPF50+ × 1大瓶</div>
-      </div>
-    </div>
-
-  </div><!-- end outfit-male -->
-
-  <!-- FEMALE -->
-  <div id="outfit-female" style="display:none;">
-
-    <!-- Key rules -->
-    <div style="background:white;border-radius:0.8rem;padding:1rem 1.2rem;margin-bottom:1rem;border-left:4px solid var(--terracotta);">
-      <div style="font-weight:600;font-size:0.85rem;color:var(--terracotta);margin-bottom:0.6rem;">女性必守穿搭守則</div>
-      <div style="display:flex;flex-direction:column;gap:0.5rem;">
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--tile);font-weight:600;flex-shrink:0;">✓</span>
-          <span>進入清真寺時<strong>頭髮需遮蓋</strong>（圍巾），部分場所強制要求，建議隨時備一條</span>
-        </div>
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--tile);font-weight:600;flex-shrink:0;">✓</span>
-          <span>服裝需<strong>覆蓋肩膀與膝蓋</strong>，無袖上衣進入清真寺前需加外套或圍巾披肩</span>
-        </div>
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--terracotta);font-weight:600;flex-shrink:0;">✗</span>
-          <span>短裙、露肩洋裝、低胸上衣在烏茲別克的宗教場所與保守地區會引起不適，請避免</span>
-        </div>
-        <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.78rem;color:var(--ink);">
-          <span style="color:var(--tile);font-weight:600;flex-shrink:0;">✓</span>
-          <span>色彩鮮豔的衣物反而受當地人喜愛，不需要穿得暗沉，大膽穿烏茲別克絲綢的豐富色彩吧！</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Outfit cards female -->
-    <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1rem;">
-
-      <div style="background:white;border-radius:0.8rem;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-        <div style="background:var(--terracotta);padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:white;font-weight:600;font-size:0.82rem;">場景 1｜古城觀光 · 日間</span>
-          <span style="background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:1rem;">每日基本款</span>
-        </div>
-        <div style="padding:0.9rem 1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;font-size:0.76rem;">
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">上身</div>
-              <div style="color:var(--ink);">棉麻寬鬆長袖上衣，或有袖的輕薄洋裝（長度過膝）。花卉圖案與飽和色系在當地非常搭</div>
-            </div>
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">下身</div>
-              <div style="color:var(--ink);">過膝寬裙、闊腿褲或棉麻長褲，輕盈好走且通風，避免緊身褲</div>
-            </div>
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">頭飾備用</div>
-              <div style="color:var(--ink);">大尺寸輕薄棉質圍巾（90x90cm以上），進清真寺時可快速包裹頭部，平時防曬也實用</div>
-            </div>
-            <div style="background:#FFF5F0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--terracotta);font-weight:600;margin-bottom:0.2rem;">鞋子</div>
-              <div style="color:var(--ink);">有支撐的平底涼鞋或舒適健走鞋，夏伊辛達石階光滑，避免人字拖</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:white;border-radius:0.8rem;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-        <div style="background:var(--tile);padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:white;font-weight:600;font-size:0.82rem;">場景 2｜沙漠包車移動日</span>
-          <span style="background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:1rem;">Day 7 布哈拉→希瓦</span>
-        </div>
-        <div style="padding:0.9rem 1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;font-size:0.76rem;">
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">全套</div>
-              <div style="color:var(--ink);">輕薄長袖連身寬褲套裝或麻料寬褲+長袖上衣。一體式減少組合煩惱，移動中舒適</div>
-            </div>
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">防護</div>
-              <div style="color:var(--ink);">薄款口罩（沙漠風沙）、太陽眼鏡、大帽簷遮陽帽，防曬乳每2小時補一次</div>
-            </div>
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">保濕</div>
-              <div style="color:var(--ink);">沙漠空氣極乾燥，隨身攜帶保濕噴霧與護唇膏，到達希瓦後皮膚明顯乾癢</div>
-            </div>
-            <div style="background:#F0FAFA;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:var(--tile);font-weight:600;margin-bottom:0.2rem;">包包</div>
-              <div style="color:var(--ink);">斜背小包放隨身物，大行李放車箱，途中停靠餐廳不需拿大包</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:white;border-radius:0.8rem;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-        <div style="background:var(--gold);padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:white;font-weight:600;font-size:0.82rem;">場景 3｜精緻晚餐 · 夜間</span>
-          <span style="background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:1rem;">Emirhan 露台 / Doston House</span>
-        </div>
-        <div style="padding:0.9rem 1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;font-size:0.76rem;">
-            <div style="background:#FFFBF0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:#A07820;font-weight:600;margin-bottom:0.2rem;">穿搭亮點</div>
-              <div style="color:var(--ink);">可選購一件在地烏茲別克絲綢上衣或印花棉麻罩衫作為旅程紀念，色彩豐富且極具拍照效果</div>
-            </div>
-            <div style="background:#FFFBF0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:#A07820;font-weight:600;margin-bottom:0.2rem;">外層</div>
-              <div style="color:var(--ink);">薄款針織開衫，兼顧夜晚保暖與清真寺遮肩功能</div>
-            </div>
-            <div style="background:#FFFBF0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:#A07820;font-weight:600;margin-bottom:0.2rem;">飾品</div>
-              <div style="color:var(--ink);">可在布哈拉市集購入手工銀飾或琉璃耳環，融入在地風情</div>
-            </div>
-            <div style="background:#FFFBF0;border-radius:0.5rem;padding:0.6rem;">
-              <div style="color:#A07820;font-weight:600;margin-bottom:0.2rem;">鞋子</div>
-              <div style="color:var(--ink);">低跟或楔形鞋，古城石板路不平，高跟鞋容易卡縫</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Packing list female -->
-    <div style="background:white;border-radius:0.8rem;padding:1rem 1.2rem;border-left:4px solid var(--gold);">
-      <div style="font-weight:600;font-size:0.85rem;color:var(--ink);margin-bottom:0.7rem;">🧳 女性行李清單（10天）</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;font-size:0.75rem;color:var(--muted);">
-        <div>✦ 過膝洋裝或長裙 × 3</div>
-        <div>✦ 棉麻長袖上衣 × 3</div>
-        <div>✦ 闊腿褲或長褲 × 2</div>
-        <div>✦ 薄款針織開衫 × 1</div>
-        <div>✦ 大尺寸輕薄圍巾 × 2</div>
-        <div>✦ 速乾內衣褲 × 7–8</div>
-        <div>✦ 平底健走鞋 × 1雙</div>
-        <div>✦ 輕便晚餐鞋 × 1雙</div>
-        <div>✦ 大帽簷遮陽帽 × 1</div>
-        <div>✦ 斜背包 × 1</div>
-        <div>✦ 保濕噴霧 + 護唇膏</div>
-        <div>✦ 防曬乳 SPF50+ × 1大瓶</div>
-      </div>
-    </div>
-
-  </div><!-- end outfit-female -->
-
-  <!-- shared warning -->
-  <div style="margin-top:1.2rem;background:white;border-radius:0.8rem;padding:1rem 1.2rem;border-left:4px solid var(--terracotta);">
-    <div style="font-weight:600;font-size:0.82rem;color:var(--terracotta);margin-bottom:0.5rem;">⚠️ 男女共用注意事項</div>
-    <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.76rem;color:var(--muted);">
-      <div>• 進清真寺前在門口通常有拖鞋可換，穿易脫鞋款可節省大量時間</div>
-      <div>• 布哈拉與希瓦古城石板路不平，旅程10天共步行30km以上，鞋子的舒適度絕對比外觀重要</div>
-      <div>• 在地市場可以低價買到烏茲別克傳統罩衫（Chapan）當紀念品，穿上拍照效果極佳</div>
-      <div>• 深色衣物較耐沙塵，淺色白衣在沙漠路段的包車上容易沾污，建議沙漠日選深色</div>
-    </div>
-  </div>
-
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="logo">Uzbekistan</div>
-  <p>願你帶著滿滿的藍色記憶與抓飯的香氣平安歸來</p>
-  <p style="margin-top:0.5rem;opacity:0.3;">資料來源：烏茲別克 10 日深度文化之旅完整行程計畫</p>
-</footer>
-
+<div id="app"></div>
 <script>
-function toggleDay(card) {
-  card.classList.toggle('open');
+const D = {
+  title:"🕌 烏茲別克絲路之旅",sub:"10晚11天 · Uzbekistan",people:3,
+  budget:[{i:"✈️",c:"國際機票（來回）",a:"$400–600"},{i:"🏨",c:"住宿（10晚）",a:"$250–400"},{i:"🚄",c:"城市間交通",a:"$80–120"},{i:"🍽️",c:"餐飲（10天）",a:"$150–200"},{i:"🎫",c:"景點門票",a:"$50–80"},{i:"🛍️",c:"購物紀念品",a:"$100–200"},{i:"🚕",c:"市內交通",a:"$50–80"}],
+  budgetTotal:"~$1,080–1,680 USD",
+  etiq:[{i:"👗",t:"宗教場所著裝",d:"覆蓋肩膀與膝蓋。女性隨身攜帶輕薄圍巾，進門前脫鞋。"},{i:"📸",t:"拍照禮儀",d:"拍攝當地人前先微笑徵得同意，避免拍攝政府建築與軍事設施。"},{i:"🍵",t:"茶文化",d:"倒茶反覆三次叫「Kaytar」是敬意儀式。進門必喝茶，拒絕是失禮。"},{i:"🤝",t:"性別互動",d:"初次見面右手輕放胸前微微鞠躬，勿主動伸手握手。"},{i:"💰",t:"市場議價",d:"帶著微笑開價，這是絲路延續至今的溫度。"},{i:"🙏",t:"禮拜禁忌",d:"勿從正在禮拜的人前方經過。受邀做客帶非酒精禮物。"}],
+  tips:[{i:"📅",t:"最佳旅遊季節",d:"4–5月（春花）或9–10月。夏季可達40°C。",c:"#C9A96E"},{i:"🛂",t:"簽證",d:"台灣護照可申請 e-Visa，2–3工作天核發，約$20 USD。",c:"#1B4F8A"},{i:"📱",t:"必備APP",d:"Yandex Go（計程車）、Google Maps（離線地圖）。機場買 Beeline SIM 卡 25GB/$5。",c:"#C1633A"},{i:"💱",t:"貨幣",d:"UZS，$1≈12,700。ATM常見，建議帶美元現金。景點僅收現金。",c:"#2E8B8B"},{i:"🎒",t:"必帶物品",d:"防曬乳SPF50+、防塵口罩（沙漠）、輕薄圍巾（清真寺）、防滑鞋。",c:"#D4A843"}],
+  days:[
+    {day:1,date:"4/24",wk:"五",city:"塔什干 Tashkent",title:"抵達 · 養精蓄銳迎接絲路",emo:"✈️",clr:"#1B4F8A",spots:[
+      {tm:"20:15",nm:"✈️ 塔什干國際機場抵達",ds:"入境、提行李、出關約30–45分鐘。搭 Yandex Go 至市區約25–40分鐘。",mp:"Tashkent+International+Airport",tg:["交通"],tp:"💡 車資約 60,000–100,000 UZS，用 Yandex Go 叫車避免野雞車",la:41.2531,ln:69.2817},
+      {tm:"21:30",nm:"🏨 入住飯店 · 簡單補給",ds:"到達已晚，飯店附近便利商店採購水果、飲品。早點休息。",tg:["住宿"],tp:"💡 帖木兒廣場夜景明天傍晚補逛更好",la:41.3111,ln:69.2797},
+      {tm:"備註",nm:"📋 當晚準備事項",ds:"確認高鐵車票（4/26 08:00→撒馬爾罕）。下載 Yandex Go、離線地圖。機場換少量索姆。",tg:["提醒"],wn:"⚠️ 高鐵熱門班次易售罄，今晚確認",la:41.3111,ln:69.2797},
+    ]},
+    {day:2,date:"4/25",wk:"六",city:"塔什干 Tashkent",title:"老城靈魂與地下宮殿",emo:"🕌",clr:"#1B4F8A",spots:[
+      {tm:"08:30",nm:"🕌 哈茲拉提伊瑪目建築群",ds:"世界最古老古蘭經手抄本（7世紀），UNESCO遺產。圖書館門票 30,000 UZS。",mp:"Khast+Imam+Complex+Tashkent",tg:["觀光"],la:41.3396,ln:69.2321},
+      {tm:"09:30",nm:"🛒 楚蘇巴扎 Chorsu Bazaar",ds:"藍綠色大穹頂傳統市場。香料、乾果堅果、現做拉麵烤肉串，價格親民。",mp:"Chorsu+Bazaar+Tashkent",tg:["購物","餐飲"],la:41.3264,ln:69.2341},
+      {tm:"11:30",nm:"🏫 庫凱達什神學院 + 朱瑪清真寺",ds:"15世紀塔什干現存最大歷史建築之一，與朱瑪清真寺相鄰，步行即達。",mp:"Kukeldash+Madrasah+Tashkent",tg:["觀光"],la:41.3270,ln:69.2350},
+      {tm:"12:30",nm:"🍚 貝什科宗抓飯中心",ds:"全世界最大的抓飯鍋！節慶抓飯配鵪鶉蛋、馬肉腸。",mp:"Besh+Qozon+Plov+Center+Tashkent",tg:["餐飲"],ml:"lunch",la:41.3089,ln:69.2953},
+      {tm:"14:30",nm:"🚇 地鐵宮殿巡禮",ds:"必訪：Alisher Navoi（浮雕天花板）、Kosmonavtlar（太空主題）、Mustaqillik Maydoni。",tg:["觀光","交通"],tp:"💡 地鐵約 1,800 UZS/次",la:41.3116,ln:69.2787},
+      {tm:"16:30",nm:"🎨 國家應用藝術博物館",ds:"蘇扎尼刺繡、陶瓷、木雕。19世紀傳統宅邸展館。",mp:"State+Museum+of+Applied+Arts+Tashkent",tg:["觀光"],la:41.3078,ln:69.2710},
+      {tm:"18:00",nm:"🗽 帖木兒廣場 + Broadway",ds:"帖木兒銅像與夜間天際線。Broadway 步行街傍晚散步消食。",mp:"Amir+Timur+Square+Tashkent",tg:["觀光"],la:41.3111,ln:69.2797},
+      {tm:"晚餐",nm:"🍷 Platan Restaurant",ds:"烏茲別克×歐式融合＋當地葡萄酒。",tg:["餐飲"],ml:"dinner",wn:"⚠️ 明早搭高鐵，確認車票",la:41.3110,ln:69.2800},
+    ]},
+    {day:3,date:"4/26",wk:"日",city:"→ 撒馬爾罕",title:"帝木兒帝國初次相遇",emo:"🏛️",clr:"#2E8B8B",spots:[
+      {tm:"08:00",nm:"🚄 阿夫羅西約布 760Ф",ds:"塔什干→撒馬爾罕 2h8m。提前30分鐘到站。",tg:["交通"],tp:"💡 eticket.railway.uz 訂票",la:41.2891,ln:69.2029},
+      {tm:"11:00",nm:"🏛️ 古里阿米爾陵墓",ds:"帖木兒長眠之地，藍色穹頂、深綠玉石棺。泰姬瑪哈陵建築原型。",mp:"Gur-e-Amir+Mausoleum+Samarkand",tg:["觀光"],la:39.6494,ln:66.9685},
+      {tm:"午餐",nm:"🍖 Shokhrukh Nur 餐廳",ds:"嫩羊肉串+手工拉麵+當地啤酒。",tg:["餐飲"],ml:"lunch",la:39.6550,ln:66.9760},
+      {tm:"14:30",nm:"🌟 列吉斯坦廣場",ds:"三座神學院環抱，世界最壯觀伊斯蘭建築群。日落是黃金拍攝時段。",mp:"Registan+Square+Samarkand",tg:["觀光"],la:39.6548,ln:66.9758},
+      {tm:"晚餐",nm:"🌙 Emirhan 頂樓露台",ds:"直望列吉斯坦廣場夜景燈光，旺季請提前預約。",mp:"Emirhan+Restaurant+Samarkand",tg:["餐飲"],ml:"dinner",la:39.6545,ln:66.9765},
+    ]},
+    {day:4,date:"4/27",wk:"一",city:"撒馬爾罕",title:"陵墓之路與天文台",emo:"💎",clr:"#2E8B8B",spots:[
+      {tm:"08:30",nm:"💎 夏伊辛達陵墓群",ds:"最令人屏息的陵墓走廊，14–15世紀釉磚藝術巔峰。石階光滑穿防滑鞋！",mp:"Shah-i-Zinda+Samarkand",tg:["觀光"],la:39.6620,ln:66.9879},
+      {tm:"10:30",nm:"🕌 比比哈努姆 + 錫亞布巴扎",ds:"曾是全球最大清真寺。對面巴扎17種圓餅——全烏茲別克最好吃的麵包。",mp:"Bibi+Khanym+Mosque+Samarkand",tg:["觀光","購物"],la:39.6607,ln:66.9788},
+      {tm:"午餐",nm:"🍛 撒馬爾罕抓飯中心 N1",ds:"當地人公認最好的抓飯，份量豪邁。",tg:["餐飲"],ml:"lunch",la:39.6555,ln:66.9770},
+      {tm:"14:00",nm:"🔭 烏魯別克天文台",ds:"1428年建造的弧形六分儀，精準測繪1000+顆恆星。旁為阿夫羅西亞博物館。",mp:"Ulugh+Beg+Observatory+Samarkand",tg:["觀光"],la:39.6721,ln:66.9778},
+      {tm:"晚餐",nm:"🕯️ Platan Restaurant",ds:"必點馬斯塔瓦湯＋當地葡萄酒＋烤饢。請提前訂位。",tg:["餐飲"],ml:"dinner",wn:"⚠️ 明天高鐵往布哈拉 09:50",la:39.6550,ln:66.9755},
+    ]},
+    {day:5,date:"4/28",wk:"二",city:"→ 布哈拉",title:"穿越時空的千年聖城",emo:"🕌",clr:"#C1633A",spots:[
+      {tm:"09:50",nm:"🚄 762Ф → 布哈拉",ds:"撒馬爾罕→布哈拉 1h29m。火車站距舊城12km，計程車20min。",tg:["交通"],la:39.7099,ln:64.6184},
+      {tm:"12:30",nm:"🌊 拉比豪茲廣場午餐",ds:"梧桐樹蔭人工水池旁。烤肉串與酸奶沙拉，傍晚有現場音樂。",mp:"Lyabi+Hauz+Bukhara",tg:["餐飲","觀光"],ml:"lunch",la:39.7734,ln:64.4177},
+      {tm:"14:00",nm:"🏪 穹頂交易市場",ds:"16世紀絲路巴扎：珠寶穹頂→帽子穹頂→貨幣穹頂，議價是禮儀。",mp:"Toki+Zargaron+Bukhara",tg:["購物","觀光"],la:39.7748,ln:64.4155},
+      {tm:"17:00",nm:"🗼 波伊卡里安建築群",ds:"45.6m卡里安宣禮塔（1127年），連成吉思汗都被震懾而保留。",mp:"Kalyan+Minaret+Bukhara",tg:["觀光"],la:39.7755,ln:64.4157},
+      {tm:"晚餐",nm:"🏡 Doston House 私宅餐廳",ds:"僅接受15人預約。四種植物油抓飯被譽為全烏茲別克最好。",mp:"Doston+House+Bukhara",tg:["餐飲"],ml:"dinner",wn:"⚠️ 必須提前預約！",la:39.7740,ln:64.4170},
+    ]},
+    {day:6,date:"4/29",wk:"三",city:"布哈拉",title:"方舟城堡與手工藝職人",emo:"🏯",clr:"#C1633A",spots:[
+      {tm:"09:00",nm:"🏯 方舟城堡 Ark",ds:"千年土築城堡，登城牆俯瞰舊城全景。",mp:"Ark+Fortress+Bukhara",tg:["觀光"],la:39.7760,ln:64.4128},
+      {tm:"10:30",nm:"🕌 博洛豪茲 + 薩曼尼陵墓",ds:"20根精雕木柱。10世紀陵墓是中亞最古老伊斯蘭建築。",mp:"Ismail+Samani+Mausoleum+Bukhara",tg:["觀光"],la:39.7780,ln:64.4100},
+      {tm:"12:30",nm:"🍖 Old Bukhara Restaurant",ds:"傳統布哈拉烤肉與曼提餃子。",tg:["餐飲"],ml:"lunch",la:39.7745,ln:64.4160},
+      {tm:"14:00",nm:"🎨 手工藝工坊 + 瑪戈奇阿塔里",ds:"銅器雕花、刺繡工坊。布哈拉最古老清真寺。",mp:"Magoki+Attori+Mosque+Bukhara",tg:["觀光","購物"],tp:"💡 深度旅遊精華！",la:39.7740,ln:64.4150},
+      {tm:"16:00",nm:"🍵 拉比豪茲茶館發呆",ds:"一壺綠茶配堅果杏乾。什麼都不做，就只是在場。",tg:["體驗"],la:39.7734,ln:64.4177},
+      {tm:"晚餐",nm:"🍺 池畔茶館 Chayhana",ds:"拉麵＋布哈拉烤魚＋Sarbast生啤＋現場民族音樂。",tg:["餐飲"],ml:"dinner",wn:"⚠️ 明天包車往希瓦，確認安排",la:39.7735,ln:64.4178},
+    ]},
+    {day:7,date:"4/30",wk:"四",city:"→ 希瓦",title:"穿越克孜勒庫姆沙漠",emo:"🏰",clr:"#D4A843",spots:[
+      {tm:"08:00",nm:"🚗 包車→希瓦（約6hr）",ds:"穿越沙漠，沿阿姆河行駛。棉花田→黃沙→駱駝帳篷。",tg:["交通"],tp:"💡 三人分攤約$30–45/人",la:39.7745,ln:64.4231},
+      {tm:"中途",nm:"🍽️ Zakhratun 午餐",ds:"沙漠途中休息補給。",tg:["餐飲"],ml:"lunch",la:40.5,ln:62.0},
+      {tm:"15:00",nm:"🏰 伊欽卡拉古城初見",ds:"迷失在泥磚迷宮中。登伊斯蘭霍查宣禮塔（57m）俯瞰日落。",mp:"Ichan+Kala+Khiva",tg:["觀光"],tp:"💡 日落是希瓦最震撼體驗",la:41.3786,ln:60.3638},
+      {tm:"晚餐",nm:"🌿 Terrassa Cafe",ds:"必點綠麵 Shivit Oshi（香草手工麵）＋南瓜曼提餃子。希瓦獨有。",mp:"Terrassa+Cafe+Khiva",tg:["餐飲"],ml:"dinner",la:41.3790,ln:60.3640},
+    ]},
+    {day:8,date:"5/1",wk:"五",city:"希瓦 Khiva",title:"中亞最完整的活態博物館",emo:"🌅",clr:"#D4A843",spots:[
+      {tm:"08:00",nm:"🌅 清晨獨步古城",ds:"遊客湧入前最魔幻。陽光斜射泥磚牆，街道空無一人。",tg:["體驗"],tp:"💡 全程最值得早起的一刻",la:41.3786,ln:60.3638},
+      {tm:"08:30",nm:"🏛️ 卡爾塔米諾爾 + 庫尼亞方舟",ds:"未完成的綠松石胖宣禮塔。登庫尼亞方舟360度俯瞰。",mp:"Kalta+Minor+Minaret+Khiva",tg:["觀光"],la:41.3790,ln:60.3620},
+      {tm:"10:30",nm:"🏛️ 朱瑪清真寺 + 塔什豪利宮",ds:"213根精雕木柱大廳。19世紀皇宮彩繪天花板嘆為觀止。",mp:"Juma+Mosque+Khiva",tg:["觀光"],la:41.3788,ln:60.3635},
+      {tm:"午餐",nm:"🌸 Khiva Moon 花園餐廳",ds:"花拉子模式抓飯＋蛋餃子 Tukhum Barak。",mp:"Khiva+Moon+Restaurant",tg:["餐飲"],ml:"lunch",la:41.3785,ln:60.3645},
+      {tm:"14:00",nm:"💫 帕赫拉旺陵墓 + 手工藝巷弄",ds:"守護聖人墓（最精美藍白磁磚）→登伊斯蘭霍查頂→木雕絲織工坊。",mp:"Pahlavon+Mahmud+Mausoleum+Khiva",tg:["觀光","購物"],la:41.3789,ln:60.3632},
+      {tm:"深夜",nm:"⭐ 沙漠星空",ds:"城牆上靜觀星空，光害極低，繁星壯觀。",tg:["體驗"],wn:"⚠️ 明天搭飛機，確認機場接送",la:41.3786,ln:60.3638},
+    ]},
+    {day:9,date:"5/2",wk:"六",city:"→ 回塔什干",title:"回到起點，不同的眼光",emo:"✈️",clr:"#1B4F8A",spots:[
+      {tm:"07:50",nm:"🚕 往烏爾根奇機場",ds:"希瓦搭計程車約30–35分鐘。",tg:["交通"],tp:"💡 國內線提前1小時到",la:41.5862,ln:60.6417},
+      {tm:"09:30",nm:"✈️ HY52 → 塔什干",ds:"Uzbekistan Airways，10:50抵達。$50–80 USD。",tg:["交通"],la:41.2531,ln:69.2817},
+      {tm:"11:30",nm:"🏛️ 獨立廣場 + 帖木兒博物館",ds:"以全新眼光回顧帖木兒帝國歷史。",mp:"Amir+Timur+Museum+Tashkent",tg:["觀光"],la:41.3111,ln:69.2797},
+      {tm:"18:00",nm:"🛍️ 購物採買",ds:"Tashkent City Mall：蘇扎尼刺繡、陶瓷、絲巾、藏紅花。",tg:["購物"],la:41.3114,ln:69.2811},
+      {tm:"晚餐",nm:"🥂 Tumbler Bar & Lounge",ds:"塔什干最高評價餐酒館，手工調酒慶祝旅途。",tg:["餐飲"],ml:"dinner",la:41.3100,ln:69.2790},
+    ]},
+    {day:10,date:"5/3",wk:"日",city:"塔什干",title:"最後的巡禮",emo:"🛍️",clr:"#7A6A5A",spots:[
+      {tm:"09:30",nm:"🛒 楚蘇巴扎最後採買",ds:"圓餅、乾果堅果禮盒、孜然藏紅花、手工陶瓷小碗。",mp:"Chorsu+Bazaar+Tashkent",tg:["購物"],la:41.3264,ln:69.2341},
+      {tm:"午餐",nm:"🔥 Tandiriy 烤爐料理",ds:"巴扎旁烤爐烤肉與烤餅。",tg:["餐飲"],ml:"lunch",la:41.3260,ln:69.2345},
+      {tm:"14:00",nm:"🛍️ Tashkent City Mall",ds:"最後購物：蘇扎尼刺繡、絲巾。",tg:["購物"],la:41.3114,ln:69.2811},
+      {tm:"晚餐",nm:"🥂 Tumbler Bar & Lounge",ds:"慶功晚宴。精緻創意料理。",mp:"Tumbler+Bar+Lounge+Tashkent",tg:["餐飲"],ml:"dinner",la:41.3100,ln:69.2790},
+    ]},
+    {day:11,date:"5/4",wk:"一",city:"塔什干 → 回家",title:"帶著藍色記憶啟程",emo:"🛫",clr:"#4A4A4A",spots:[
+      {tm:"上午",nm:"☕ 飯店早餐 + 收行李",ds:"輕鬆早晨，補寫明信片，或帖木兒廣場最後散步。",tg:["住宿"],la:41.3111,ln:69.2797},
+      {tm:"13:00",nm:"🕌 哈茲拉提伊瑪目（選）",ds:"寧靜庭院做最後沉澱。Day 2 第一站，最後再訪別有感觸。",mp:"Khast+Imam+Complex+Tashkent",tg:["觀光"],la:41.3396,ln:69.2321},
+      {tm:"18:40",nm:"🚕 出發前往機場",ds:"航班 21:40。市區→機場20–30min。國際線提前3小時。",tg:["交通"],wn:"⚠️ 確認護照、登機證、電子票券",la:41.2531,ln:69.2817},
+      {tm:"21:40",nm:"✈️ 塔什干機場出發",ds:"願你帶著藍色琉璃磚記憶、抓飯香氣與茶館溫度，平安回家。",mp:"Tashkent+International+Airport",tg:["交通"],ml:"farewell",la:41.2531,ln:69.2817},
+    ]},
+  ]
+};
+
+let state={ad:0,vw:"itinerary",ex:null,days:JSON.parse(JSON.stringify(D.days)),it:"tips",modal:null};
+
+function gm(s){return s.mp?`https://maps.google.com/?q=${s.mp}`:`https://www.google.com/maps/search/?api=1&query=${s.la},${s.ln}`}
+function nb(s,t){return`https://www.google.com/maps/search/${t}/@${s.la},${s.ln},15z`}
+function ml(m){return{lunch:{bg:"#FFF3E0",c:"#E65100",l:"☀️ 午餐"},dinner:{bg:"#E8F5E9",c:"#2E7D32",l:"🌙 晚餐"},farewell:{bg:"#FCE4EC",c:"#AD1457",l:"🌙 再見烏茲別克"}}[m]}
+
+function render(){
+  const c=state.days[state.ad];
+  let h=`
+  <div class="hdr">
+    <div class="hdr-top">
+      <div><h1>${D.title}</h1><div class="sub">${D.sub}</div></div>
+      <div class="badges">
+        <span class="badge">🔒 私隱</span>
+        <span class="badge">👥 ${D.people}名</span>
+        <span class="badge">↻ 重設</span>
+      </div>
+    </div>
+    <div class="tabs">${state.days.map((d,i)=>`
+      <div class="tab ${state.ad===i?'active':''}" style="${state.ad===i?`background:linear-gradient(135deg,${d.clr},${d.clr}cc);box-shadow:0 3px 12px ${d.clr}44`:''}" onclick="nav(${i})">
+        <span class="emo">${d.emo}</span>
+        <span class="lbl">第${d.day}天</span>
+        <span class="wk">${d.wk} · ${d.date}</span>
+      </div>`).join('')}
+    </div>
+    <div class="vtog">
+      <button class="${state.vw==='itinerary'?'active':''}" onclick="sw('itinerary')">📋 行程</button>
+      <button class="${state.vw==='map'?'active':''}" onclick="sw('map')">🗺️ 地圖</button>
+      <button class="${state.vw==='info'?'active':''}" onclick="sw('info')">📖 攻略</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="day-hdr">
+      <div class="city" style="color:${c.clr}">${c.emo} ${c.city}</div>
+      <div class="dtitle">${c.title}</div>
+      <div class="ddate">2026 年 ${c.date}（${c.wk}）</div>
+    </div>`;
+
+  if(state.vw==='itinerary'){
+    h+=`<div class="add-spot" onclick="addSpot(0)">＋ 在此加入新景點</div>`;
+    c.spots.forEach((s,i)=>{
+      const ex=state.ex===i;
+      h+=`<div class="conn"><span>${s.tg&&s.tg.includes('交通')?'🚃':'🚶'}</span><div class="line"></div></div>`;
+      h+=`<div class="spot ${ex?'expanded':''}" style="animation-delay:${i*.05}s" onclick="toggle(${i})">
+        <div class="spot-top">
+          <div style="flex:1">
+            <div class="spot-meta">
+              <span class="spot-time" style="color:${c.clr}">${s.tm}</span>
+              <span class="spot-idx">${i+1}</span>
+            </div>
+            <h3>${s.nm}</h3>
+          </div>
+          <button class="spot-edit" onclick="event.stopPropagation();editSpot(${i})" title="編輯">✏️</button>
+        </div>
+        <p class="desc">${s.ds}</p>
+        <div class="tags">
+          ${(s.tg||[]).map(t=>`<span class="tag tag-${t}">${t}</span>`).join('')}
+          ${s.ml&&ml(s.ml)?`<span class="meal meal-${s.ml}" style="background:${ml(s.ml).bg};color:${ml(s.ml).c}">${ml(s.ml).l}</span>`:''}
+        </div>
+        ${s.tp?`<div class="tip-box info">${s.tp}</div>`:''}
+        ${s.wn?`<div class="tip-box warn">${s.wn}</div>`:''}
+        ${ex?`<div class="actions">
+          ${s.mp?`<a class="abtn abtn-map" href="${gm(s)}" target="_blank" onclick="event.stopPropagation()">📍 導航</a>`:''}
+          <a class="abtn abtn-food" href="${nb(s,'restaurant')}" target="_blank" onclick="event.stopPropagation()">🍽️ 附近餐廳</a>
+          <a class="abtn abtn-conv" href="${nb(s,'convenience+store')}" target="_blank" onclick="event.stopPropagation()">🏪 便利店</a>
+          <a class="abtn abtn-attr" href="${nb(s,'tourist+attraction')}" target="_blank" onclick="event.stopPropagation()">📍 附近景點</a>
+        </div>`:''}
+      </div>`;
+      h+=`<div class="add-spot" onclick="addSpot(${i+1})">＋ 在此加入新景點</div>`;
+    });
+    h+=`<div class="bottom-bar"><button class="reorder-btn" onclick="alert('提示：長按卡片上的 ✏️ 按鈕可編輯或刪除景點')">✏️ 編輯行程</button></div>`;
+  }
+
+  if(state.vw==='map'){
+    const sp=c.spots.filter(s=>s.la&&s.ln);
+    const org=sp[0],dst=sp[sp.length-1];
+    const wp=sp.length>2?'&waypoints='+sp.slice(1,-1).map(s=>`${s.la},${s.ln}`).join('|'):'';
+    h+=`<div class="map-wrap">
+      <iframe width="100%" height="380" style="border:none" loading="lazy"
+        src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&origin=${org.la},${org.ln}&destination=${dst.la},${dst.ln}${wp}&mode=driving"></iframe>
+      <div class="map-list">
+        ${sp.map((s,i)=>`<div class="map-item">
+          <div class="map-dot" style="background:${c.clr}">${i+1}</div>
+          <div class="map-info"><div class="n">${s.nm}</div><div class="t">${s.tm}</div></div>
+          ${s.mp?`<a class="map-nav" href="${gm(s)}" target="_blank">導航</a>`:''}
+        </div>`).join('')}
+      </div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#4CAF50"></span>餐飲</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#5B8DEF"></span>購物</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#D4A843"></span>觀光</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#C1633A"></span>交通</span>
+      </div>
+    </div>`;
+  }
+
+  if(state.vw==='info'){
+    h+=`<div class="info-tabs">
+      <button class="info-tab ${state.it==='tips'?'active':''}" onclick="sit('tips')">出發準備</button>
+      <button class="info-tab ${state.it==='etiq'?'active':''}" onclick="sit('etiq')">文化禮儀</button>
+      <button class="info-tab ${state.it==='budget'?'active':''}" onclick="sit('budget')">費用估算</button>
+    </div>`;
+    if(state.it==='tips') h+=D.tips.map((t,i)=>`<div class="tip-card" style="border-left:3px solid ${t.c};animation-delay:${i*.06}s"><div class="icon">${t.i}</div><div class="tt">${t.t}</div><div class="td">${t.d}</div></div>`).join('');
+    if(state.it==='etiq') h+=`<div class="etiq-grid">${D.etiq.map((e,i)=>`<div class="etiq-card" style="animation-delay:${i*.06}s"><div class="ei">${e.i}</div><div class="et">${e.t}</div><div class="ed">${e.d}</div></div>`).join('')}</div>`;
+    if(state.it==='budget'){
+      h+=D.budget.map(b=>`<div class="budget-row"><span class="cat">${b.i} ${b.c}</span><span class="amt">${b.a}</span></div>`).join('');
+      h+=`<div class="budget-total"><span class="bl">總計估算 / 人</span><span class="bt">${D.budgetTotal}</span></div>`;
+    }
+  }
+
+  h+=`</div><div class="footer"><div class="logo">Uzbekistan</div>願你帶著滿滿的藍色記憶與抓飯的香氣平安歸來</div>`;
+
+  // Modal
+  if(state.modal!==null){
+    const s=state.modal==='new'?{tm:'',nm:'',ds:'',tg:[],tp:'',mp:''}:c.spots[state.modal];
+    const isNew=state.modal==='new';
+    h+=`<div class="modal-bg" onclick="closeModal()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <h3>${isNew?'新增景點':'編輯景點'}</h3>
+        <label>時間</label><input id="m-tm" value="${s.tm||''}">
+        <label>名稱</label><input id="m-nm" value="${s.nm||''}">
+        <label>說明</label><textarea id="m-ds">${s.ds||''}</textarea>
+        <label>Google Maps 關鍵字</label><input id="m-mp" value="${s.mp||''}" placeholder="例：Registan+Square+Samarkand">
+        <label>標籤（逗號分隔）</label><input id="m-tg" value="${(s.tg||[]).join(',')}" placeholder="觀光,餐飲,購物,交通">
+        <label>提示</label><input id="m-tp" value="${s.tp||''}">
+        <div class="modal-btns">
+          <button class="btn-cancel" onclick="closeModal()">取消</button>
+          ${!isNew?`<button class="btn-delete" onclick="delSpot(${state.modal})">刪除</button>`:''}
+          <button class="btn-save" onclick="saveSpot(${isNew?-1:state.modal})">${isNew?'新增':'儲存'}</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('app').innerHTML=h;
 }
-function switchOutfit(gender) {
-  var male = document.getElementById('outfit-male');
-  var female = document.getElementById('outfit-female');
-  var btnM = document.getElementById('btn-male');
-  var btnF = document.getElementById('btn-female');
-  if (gender === 'male') {
-    male.style.display = 'block';
-    female.style.display = 'none';
-    btnM.style.background = 'var(--cobalt)';
-    btnM.style.color = 'white';
-    btnM.style.border = 'none';
-    btnF.style.background = 'transparent';
-    btnF.style.color = 'var(--terracotta)';
-    btnF.style.border = '2px solid var(--terracotta)';
+
+function nav(i){state.ad=i;state.ex=null;state.vw='itinerary';render();document.querySelector('.tabs').children[i].scrollIntoView({behavior:'smooth',inline:'center'})}
+function sw(v){state.vw=v;render()}
+function sit(t){state.it=t;render()}
+function toggle(i){state.ex=state.ex===i?null:i;render()}
+
+function editSpot(i){state.modal=i;render()}
+function closeModal(){state.modal=null;render()}
+
+let addIdx=0;
+function addSpot(afterIdx){
+  addIdx=afterIdx;
+  state.modal='new';
+  render();
+}
+
+function saveSpot(idx){
+  const tm=document.getElementById('m-tm').value;
+  const nm=document.getElementById('m-nm').value;
+  const ds=document.getElementById('m-ds').value;
+  const mp=document.getElementById('m-mp').value;
+  const tg=document.getElementById('m-tg').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const tp=document.getElementById('m-tp').value;
+  if(!nm){alert('請輸入景點名稱');return}
+  const spot={tm,nm,ds,mp:mp||'',tg,tp,la:0,ln:0};
+  if(idx===-1){
+    state.days[state.ad].spots.splice(addIdx,0,spot);
   } else {
-    male.style.display = 'none';
-    female.style.display = 'block';
-    btnF.style.background = 'var(--terracotta)';
-    btnF.style.color = 'white';
-    btnF.style.border = 'none';
-    btnM.style.background = 'transparent';
-    btnM.style.color = 'var(--cobalt)';
-    btnM.style.border = '2px solid var(--cobalt)';
+    const old=state.days[state.ad].spots[idx];
+    spot.la=old.la;spot.ln=old.ln;spot.ml=old.ml;spot.wn=old.wn;
+    state.days[state.ad].spots[idx]=spot;
+  }
+  state.modal=null;state.ex=null;render();
+}
+
+function delSpot(idx){
+  if(confirm('確定刪除此景點？')){
+    state.days[state.ad].spots.splice(idx,1);
+    state.modal=null;state.ex=null;render();
   }
 }
+
+render();
 </script>
 </body>
 </html>
